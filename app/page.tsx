@@ -1,9 +1,6 @@
-import Image from "next/image"
 import Link from "next/link"
 
-/** Full-bleed hero; swap for your own `/public/hero.jpg` when ready. */
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=85&w=2400"
+import { EarthHero } from "@/components/earth-hero"
 
 const offerings = [
   {
@@ -26,31 +23,61 @@ const offerings = [
 export default function HomePage() {
   return (
     <div className="flex flex-1 flex-col bg-white">
-      <section className="relative min-h-[min(92svh,56rem)] w-full">
-        <Image
-          src={HERO_IMAGE}
-          alt=""
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
+      {/* ── Hero: full-viewport Earth ─────────────────────────────── */}
+      <section className="relative h-[100svh] w-full overflow-hidden bg-black">
+        <EarthHero />
+
+        {/* ── Sun glow — warm corona bleeding from upper-right ─── */}
+        {/* Outer ambient warmth — wide, very soft */}
         <div
-          className="absolute inset-0 bg-black/45"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 60% at 96% 2%, rgba(255,232,140,0.13) 0%, rgba(255,210,90,0.06) 40%, transparent 70%)",
+          }}
           aria-hidden
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/55" />
+        {/* Inner bright corona — tighter, more intense */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 35% 30% at 97% 1%, rgba(255,248,210,0.18) 0%, rgba(255,230,130,0.08) 50%, transparent 75%)",
+          }}
+          aria-hidden
+        />
 
-        <div className="relative flex min-h-[min(92svh,56rem)] flex-col items-center justify-center px-6 pb-16 pt-10 text-center sm:px-10">
-          <p className="max-w-lg font-sans text-[0.65rem] font-normal uppercase leading-relaxed tracking-[0.38em] text-white sm:text-xs">
+        {/* Very subtle bottom vignette so page content bleeds in */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/60 to-transparent"
+          aria-hidden
+        />
+
+        {/* Text overlay — centred, fades in with CSS animation */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-16 flex flex-col items-center gap-4 px-6 text-center sm:bottom-20">
+          <p
+            className="animate-fade-up font-sans text-[0.6rem] font-light uppercase tracking-[0.42em] text-white/60 sm:text-[0.65rem]"
+            style={{ animationDelay: "3.5s", animationFillMode: "both" }}
+          >
             Where the next chapter begins
           </p>
-          <h1 className="mt-7 max-w-4xl font-serif text-[2.125rem] font-medium leading-[1.12] tracking-[-0.02em] text-white sm:text-5xl md:text-6xl lg:text-[3.5rem]">
+          <h1
+            className="animate-fade-up max-w-2xl font-serif text-3xl font-medium leading-[1.1] tracking-tight text-white sm:text-5xl"
+            style={{ animationDelay: "4s", animationFillMode: "both" }}
+          >
             Precision for a connected world
           </h1>
+          <Link
+            href="#discover"
+            className="animate-fade-up pointer-events-auto mt-2 font-sans text-[0.6rem] uppercase tracking-[0.3em] text-white/50 transition-opacity hover:text-white/80 sm:text-[0.65rem]"
+            style={{ animationDelay: "4.6s", animationFillMode: "both" }}
+          >
+            Scroll to discover ↓
+          </Link>
         </div>
       </section>
 
+      {/* ── Editorial section ─────────────────────────────────────── */}
       <section
         id="discover"
         className="border-t border-black/10 bg-white px-6 py-20 sm:px-10 sm:py-28"
@@ -74,8 +101,7 @@ export default function HomePage() {
             We work with leaders who need calm execution at pace: operating
             models that hold under pressure, integrations that do not become
             liabilities, and teams who can sustain the change after the
-            workshop ends. This is placeholder copy — shape it to your voice,
-            proof points, and markets.
+            workshop ends.
           </p>
 
           <Link
@@ -87,6 +113,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Capabilities ─────────────────────────────────────────── */}
       <section className="border-t border-black/10 bg-white px-6 py-16 sm:px-10 sm:py-20">
         <div className="mx-auto max-w-5xl">
           <p className="text-center font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
@@ -116,6 +143,7 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Careers teaser ───────────────────────────────────────── */}
       <section className="border-t border-black/10 bg-white px-6 py-20 sm:px-10">
         <div className="mx-auto max-w-xl text-center">
           <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
