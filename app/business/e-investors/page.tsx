@@ -31,10 +31,10 @@ export default function EInvestorsPage() {
       {/* ── Header ───────────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-4xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="type-rolex-overline text-muted-foreground">
             Business · VVR Industries
           </p>
-          <h1 className="mt-6 font-serif text-4xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+          <h1 className="mt-6 font-sans text-4xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-5xl">
             eInvestors
           </h1>
           <p className="mt-8 max-w-xl font-sans text-base leading-[1.9] text-muted-foreground">
@@ -48,11 +48,11 @@ export default function EInvestorsPage() {
       {/* ── Philosophy ───────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto grid max-w-5xl gap-16 sm:grid-cols-[1fr_2fr]">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground pt-1">
+          <p className="type-rolex-overline text-muted-foreground pt-1">
             Our commitment
           </p>
           <div className="space-y-6">
-            <h2 className="font-serif text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
+            <h2 className="font-sans text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
               Perpetual growth through principled investment.
             </h2>
             <p className="font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
@@ -73,7 +73,7 @@ export default function EInvestorsPage() {
       {/* ── Pillars ──────────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="type-rolex-overline text-muted-foreground">
             What eInvestors provides
           </p>
           <ul className="mt-14 grid gap-10 sm:grid-cols-2">
@@ -94,7 +94,7 @@ export default function EInvestorsPage() {
       {/* ── Key metrics placeholder ───────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="type-rolex-overline text-muted-foreground">
             At a glance
           </p>
           <ul className="mt-10 grid gap-0 divide-y divide-black/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
@@ -104,7 +104,7 @@ export default function EInvestorsPage() {
               { stat: "Transparent", label: "Regular reporting and open stakeholder communication" },
             ].map((item) => (
               <li key={item.stat} className="flex flex-col gap-2 py-10 sm:px-10 sm:py-0 sm:first:pl-0 sm:last:pr-0">
-                <span className="font-serif text-3xl font-medium text-foreground">{item.stat}</span>
+                <span className="font-sans text-3xl font-medium text-foreground">{item.stat}</span>
                 <span className="font-sans text-sm leading-relaxed text-muted-foreground">{item.label}</span>
               </li>
             ))}
@@ -115,7 +115,7 @@ export default function EInvestorsPage() {
       {/* ── CTA ──────────────────────────────────────────────────── */}
       <section className="px-6 py-20 sm:px-10">
         <div className="mx-auto max-w-xl text-center">
-          <p className="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
+          <p className="font-sans text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
             Interested in partnering with VVR?
           </p>
           <p className="mt-6 font-sans text-sm leading-relaxed text-muted-foreground">

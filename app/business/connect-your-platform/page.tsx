@@ -9,10 +9,8 @@ export const metadata: Metadata = {
 export default function ConnectYourPlatformPage() {
   return (
     <div className="mx-auto max-w-2xl flex-1 px-4 py-16 sm:px-6">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-foreground">
-        Business
-      </p>
-      <h1 className="mt-4 font-serif text-3xl font-medium tracking-tight text-foreground">
+      <p className="type-rolex-overline text-muted-foreground">Business</p>
+      <h1 className="mt-4 font-sans text-3xl font-medium tracking-tight text-foreground">
         Connect your platform with eConnect?
       </h1>
       <p className="mt-6 text-pretty leading-relaxed text-muted-foreground">

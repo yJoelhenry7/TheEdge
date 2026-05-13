@@ -9,6 +9,11 @@ export const sitePages: SitePage[] = [
   { title: "Home", href: "/", keywords: ["landing", "vvr", "home"] },
   { title: "About", href: "/about", keywords: ["company", "kkrv", "vvr", "founders"] },
   {
+    title: "Locations",
+    href: "/locations",
+    keywords: ["delhi", "ravulapalem", "andhra pradesh", "offices", "map", "presence"],
+  },
+  {
     title: "eConsulting",
     href: "/business/e-consulting",
     group: "Business",

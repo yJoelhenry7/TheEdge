@@ -1,63 +1,34 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
+import { CareersApplicationForms } from "@/components/careers-application-forms"
+
 export const metadata: Metadata = {
   title: "Careers",
 }
 
-const openings = [
-  {
-    title: "Senior Consultant, Digital Transformation",
-    location: "London (hybrid) — placeholder",
-    href: "#",
-  },
-  {
-    title: "Platform Engineer, eConnect",
-    location: "Remote (UK) — placeholder",
-    href: "#",
-  },
-  {
-    title: "Talent Partner",
-    location: "London — placeholder",
-    href: "#",
-  },
-]
-
 export default function CareersPage() {
   return (
-    <div className="mx-auto max-w-3xl flex-1 px-4 py-16">
-      <h1 className="text-3xl font-semibold tracking-tight text-foreground">
-        Careers
+    <div className="mx-auto max-w-4xl flex-1 px-4 py-16 sm:px-6">
+      <p className="type-rolex-overline text-muted-foreground">Careers</p>
+      <h1 className="mt-6 font-sans text-4xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+        Build with VVR
       </h1>
-      <p className="mt-6 text-pretty leading-relaxed text-muted-foreground">
-        We are building a team that cares about craft, clarity, and
-        kindness under pressure. The roles below are placeholder listings —
-        swap them for live reqs and link each row to your ATS or email
-        contact.
+      <p className="mt-8 max-w-2xl text-pretty font-sans text-base leading-[1.9] text-muted-foreground">
+        We work with people who value clarity, craft, and calm execution. Choose
+        how you would like to engage — each path opens its own application form.
       </p>
 
-      <h2 className="mt-14 text-sm font-medium uppercase tracking-widest text-foreground">
-        Open roles
-      </h2>
-      <ul className="mt-6 divide-y divide-foreground border border-foreground">
-        {openings.map((job) => (
-          <li key={job.title}>
-            <Link
-              href={job.href}
-              className="flex flex-col gap-1 px-4 py-4 transition-colors hover:bg-muted sm:flex-row sm:items-center sm:justify-between"
-            >
-              <span className="font-medium text-foreground">{job.title}</span>
-              <span className="text-sm text-muted-foreground">
-                {job.location}
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <CareersApplicationForms />
 
-      <p className="mt-10 text-sm text-muted-foreground">
-        General applications:{" "}
-        <span className="text-foreground">talent@vvrindustries.com</span>
+      <p className="mt-16 border-t border-black/10 pt-10 text-center text-sm text-muted-foreground">
+        Prefer email?{" "}
+        <Link
+          href="mailto:talent@vvrindustries.com"
+          className="text-foreground underline-offset-4 transition-opacity hover:opacity-70 hover:underline"
+        >
+          talent@vvrindustries.com
+        </Link>
       </p>
     </div>
   )

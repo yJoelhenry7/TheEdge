@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
+import { KkrvName } from "@/components/kkrv-name"
+
 export const metadata: Metadata = {
   title: "eMarketing Services",
 }
@@ -39,10 +41,10 @@ export default function EMarketingServicesPage() {
       {/* ── Header ───────────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-4xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="type-rolex-overline text-muted-foreground">
             Business · VVR Industries
           </p>
-          <h1 className="mt-6 font-serif text-4xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+          <h1 className="mt-6 font-sans text-4xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-5xl">
             eMarketing Services
           </h1>
           <p className="mt-8 max-w-xl font-sans text-base leading-[1.9] text-muted-foreground">
@@ -56,15 +58,15 @@ export default function EMarketingServicesPage() {
       {/* ── Approach ─────────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto grid max-w-5xl gap-16 sm:grid-cols-[1fr_2fr]">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground pt-1">
+          <p className="type-rolex-overline text-muted-foreground pt-1">
             Our approach
           </p>
           <div className="space-y-6">
-            <h2 className="font-serif text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
+            <h2 className="font-sans text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
               Marketing built on intelligence, executed with precision.
             </h2>
             <p className="font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
-              Under the leadership of KKRV — Marketing Director of VVR
+              Under the leadership of <KkrvName /> — Marketing Director of VVR
               Industries — our eMarketing Services practice combines deep
               market insight with modern execution capabilities. We do not
               separate strategy from delivery: the same team that sets the
@@ -82,7 +84,7 @@ export default function EMarketingServicesPage() {
       {/* ── Services grid ────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="type-rolex-overline text-muted-foreground">
             Services
           </p>
           <ul className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -103,7 +105,7 @@ export default function EMarketingServicesPage() {
       {/* ── How we engage ────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="type-rolex-overline text-muted-foreground">
             Engagement models
           </p>
           <ul className="mt-10 grid gap-6 sm:grid-cols-3">
@@ -113,7 +115,7 @@ export default function EMarketingServicesPage() {
               { model: "Advisory", detail: "Senior marketing leadership on a fractional basis — for organisations that need the thinking without the full headcount." },
             ].map((item) => (
               <li key={item.model} className="border border-black/10 p-6">
-                <p className="font-serif text-lg font-medium text-foreground">{item.model}</p>
+                <p className="font-sans text-lg font-medium text-foreground">{item.model}</p>
                 <p className="mt-3 font-sans text-sm leading-[1.85] text-muted-foreground">{item.detail}</p>
               </li>
             ))}
@@ -124,7 +126,7 @@ export default function EMarketingServicesPage() {
       {/* ── CTA ──────────────────────────────────────────────────── */}
       <section className="px-6 py-20 sm:px-10">
         <div className="mx-auto max-w-xl text-center">
-          <p className="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
+          <p className="font-sans text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
             Let&apos;s grow your business together.
           </p>
           <p className="mt-6 font-sans text-sm leading-relaxed text-muted-foreground">

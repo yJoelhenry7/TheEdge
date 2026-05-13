@@ -1,6 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
+import { KkrvName, KkrvSpacedText } from "@/components/kkrv-name"
 import { EarthHero } from "@/components/earth-hero"
 
 const offerings = [
@@ -72,20 +73,20 @@ export default function HomePage() {
         {/* Text overlay — centred, fades in with CSS animation */}
         <div className="pointer-events-none absolute inset-x-0 bottom-16 flex flex-col items-center gap-4 px-6 text-center sm:bottom-20">
           <p
-            className="animate-fade-up font-sans text-[0.6rem] font-light uppercase tracking-[0.42em] text-white/60 sm:text-[0.65rem]"
+            className="animate-fade-up font-sans text-[0.6rem] font-light uppercase tracking-[0.35em] text-white/60 sm:text-[0.625rem]"
             style={{ animationDelay: "3.5s", animationFillMode: "both" }}
           >
             Where the next chapter begins
           </p>
           <h1
-            className="animate-fade-up max-w-2xl font-serif text-3xl font-medium leading-[1.1] tracking-tight text-white sm:text-5xl"
+            className="animate-fade-up max-w-2xl font-sans text-3xl font-medium leading-[1.1] tracking-tight text-white sm:text-5xl"
             style={{ animationDelay: "4s", animationFillMode: "both" }}
           >
             Precision for a connected world
           </h1>
           <Link
             href="#discover"
-            className="animate-fade-up pointer-events-auto mt-2 font-sans text-[0.6rem] uppercase tracking-[0.3em] text-white/50 transition-opacity hover:text-white/80 sm:text-[0.65rem]"
+            className="animate-fade-up pointer-events-auto mt-2 font-sans text-[0.6rem] font-normal uppercase tracking-[0.35em] text-white/50 transition-opacity hover:text-white/80 sm:text-[0.625rem]"
             style={{ animationDelay: "4.6s", animationFillMode: "both" }}
           >
             Scroll to discover ↓
@@ -103,12 +104,12 @@ export default function HomePage() {
             className="flex size-[5.25rem] items-center justify-center rounded-full border border-black sm:size-[5.5rem]"
             aria-hidden
           >
-            <span className="font-serif text-base font-medium tracking-[0.12em] sm:text-lg">
+            <span className="font-sans text-base font-medium tracking-[0.28em] sm:text-lg">
               VVR
             </span>
           </div>
 
-          <h2 className="mt-12 font-serif text-[1.65rem] font-medium leading-snug tracking-[-0.02em] text-foreground sm:text-3xl md:text-[2.125rem]">
+          <h2 className="mt-12 font-sans text-[1.65rem] font-medium leading-snug tracking-tight text-foreground sm:text-3xl md:text-[2.125rem]">
             VVR brings composure to ambition — consulting that clarifies,
             and platforms that endure.
           </h2>
@@ -148,21 +149,15 @@ export default function HomePage() {
 
             {/* Text */}
             <div className="text-center sm:text-left">
-              <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
-                Co-Founder
-              </p>
-              <p className="mt-3 font-serif text-xl font-medium tracking-tight text-foreground sm:text-2xl">
-                KKRV
+              <p className="type-rolex-overline text-muted-foreground">Co-Founder</p>
+              <p className="mt-3 font-sans text-xl font-medium tracking-tight text-foreground sm:text-2xl">
+                <KkrvName />
               </p>
               <p className="mt-1 font-sans text-xs text-muted-foreground">
                 Founder, VVR Industries Limited · Marketing Director, VVR Industries
               </p>
               <p className="mt-5 max-w-2xl font-sans text-sm leading-[1.85] text-muted-foreground">
-                A visionary entrepreneur known for dedication, strategic
-                thinking, and extensive experience across multiple industries.
-                Through his visionary genius, KKRV set the course for an
-                adventure which has given rise to exceptional products and an
-                unparalleled brand built on perpetual excellence.
+                <KkrvSpacedText text="A visionary entrepreneur known for dedication, strategic thinking, and extensive experience across multiple industries. Through his visionary genius, KKRV set the course for an adventure which has given rise to exceptional products and an unparalleled brand built on perpetual excellence." />
               </p>
               <Link
                 href="/about"
@@ -178,7 +173,7 @@ export default function HomePage() {
       {/* ── Capabilities ─────────────────────────────────────────── */}
       <section className="border-t border-black/10 bg-white px-6 py-16 sm:px-10 sm:py-20">
         <div className="mx-auto max-w-5xl">
-          <p className="text-center font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="text-center type-rolex-overline text-muted-foreground">
             Capabilities
           </p>
           <ul className="mt-14 grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
@@ -187,7 +182,7 @@ export default function HomePage() {
                 key={item.href}
                 className="flex flex-col border-t border-black/10 pt-8"
               >
-                <h3 className="font-serif text-xl font-medium tracking-tight text-foreground">
+                <h3 className="font-sans text-xl font-medium tracking-tight text-foreground">
                   {item.title}
                 </h3>
                 <p className="mt-4 font-sans text-sm font-normal leading-[1.85] text-muted-foreground">
@@ -208,10 +203,8 @@ export default function HomePage() {
       {/* ── Careers teaser ───────────────────────────────────────── */}
       <section className="border-t border-black/10 bg-white px-6 py-20 sm:px-10">
         <div className="mx-auto max-w-xl text-center">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
-            Join us
-          </p>
-          <p className="mt-6 font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
+          <p className="type-rolex-overline text-muted-foreground">Join us</p>
+          <p className="mt-6 font-sans text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
             We are always interested in people who care about craft.
           </p>
           <Link

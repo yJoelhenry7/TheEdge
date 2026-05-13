@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 
+import { KkrvName, KkrvSpacedText } from "@/components/kkrv-name"
+
 export const metadata: Metadata = {
   title: "About",
 }
@@ -36,7 +38,7 @@ export default function AboutPage() {
       {/* ── Page header ───────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-4xl">
-          <h1 className="max-w-2xl font-serif text-4xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+          <h1 className="max-w-2xl font-sans text-4xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-5xl">
             VVR Industries Limited
           </h1>
           <p className="mt-8 max-w-xl font-sans text-base leading-[1.9] text-muted-foreground">
@@ -51,18 +53,16 @@ export default function AboutPage() {
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto grid max-w-5xl gap-16 sm:grid-cols-[1fr_2fr]">
           <div className="pt-1">
-            <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
-              Philosophy
-            </p>
+            <p className="type-rolex-overline text-muted-foreground">Philosophy</p>
           </div>
           <div className="space-y-8">
-            <h2 className="font-serif text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
+            <h2 className="font-sans text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
               Perpetual excellence — more than a word, a way of being.
             </h2>
             <p className="font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
               The world continuing forever — perpetual — is more than just a
               word; it is a philosophy that embodies the company&apos;s vision and
-              values. KKRV, the co-founder, instilled a notion of perpetual
+              values. <KkrvName />, the co-founder, instilled a notion of perpetual
               excellence that would drive the company forward, inspiring every
               decision and every product that bears the VVR name.
             </p>
@@ -73,12 +73,13 @@ export default function AboutPage() {
               and human adventure.
             </p>
             <p className="font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
-              Today, KKRV&apos;s personality and his work continue to inspire the
-              company and permeate its corporate culture. The entrepreneur&apos;s
-              influence is evident in the aesthetics and principal
-              characteristics of the industry that remain faithful to the
-              original brand — as well as in VVR&apos;s ability to draw on its
-              heritage to continuously advance towards new horizons.
+              Today, <KkrvName />
+              &apos;s personality and his work continue to inspire the company and
+              permeate its corporate culture. The entrepreneur&apos;s influence is
+              evident in the aesthetics and principal characteristics of the
+              industry that remain faithful to the original brand — as well as in
+              VVR&apos;s ability to draw on its heritage to continuously advance
+              towards new horizons.
             </p>
           </div>
         </div>
@@ -87,9 +88,7 @@ export default function AboutPage() {
       {/* ── Founder profile ───────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
-            Co-Founder
-          </p>
+          <p className="type-rolex-overline text-muted-foreground">Co-Founder</p>
 
           <div className="mt-12 grid gap-14 sm:grid-cols-[5fr_7fr] sm:gap-16">
             {/* Photo */}
@@ -106,7 +105,7 @@ export default function AboutPage() {
               {/* Subtle caption bar */}
               <div className="mt-4 flex items-center justify-between">
                 <span className="font-sans text-xs font-medium text-foreground">
-                  KKRV
+                  <KkrvName />
                 </span>
                 <span className="font-sans text-xs text-muted-foreground">
                   Co-Founder
@@ -116,8 +115,8 @@ export default function AboutPage() {
 
             {/* Text */}
             <div className="flex flex-col justify-center">
-              <h2 className="font-serif text-3xl font-medium leading-tight tracking-tight text-foreground sm:text-4xl">
-                KKRV
+              <h2 className="font-sans text-3xl font-medium leading-tight tracking-tight text-foreground sm:text-4xl">
+                <KkrvName />
               </h2>
               <p className="mt-2 font-sans text-sm uppercase tracking-[0.22em] text-muted-foreground">
                 Founder · VVR Industries Limited
@@ -126,18 +125,10 @@ export default function AboutPage() {
               </p>
 
               <p className="mt-8 font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
-                A visionary entrepreneur driving innovation and business
-                excellence. KKRV is a dynamic business leader known for his
-                dedication, strategic thinking, and extensive experience across
-                multiple industries.
+                <KkrvSpacedText text="A visionary entrepreneur driving innovation and business excellence. KKRV is a dynamic business leader known for his dedication, strategic thinking, and extensive experience across multiple industries." />
               </p>
               <p className="mt-5 font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
-                The success of VVR is inextricably linked to the spirit of
-                enterprise of its co-founder. Through his visionary genius and
-                adeptness in all fields related to industrial development —
-                technology, communication, organisation and distribution —
-                KKRV set the course for an adventure which has given rise to
-                exceptional articles and an unparalleled brand.
+                <KkrvSpacedText text="The success of VVR is inextricably linked to the spirit of enterprise of its co-founder. Through his visionary genius and adeptness in all fields related to industrial development — technology, communication, organisation and distribution — KKRV set the course for an adventure which has given rise to exceptional articles and an unparalleled brand." />
               </p>
               <p className="mt-5 font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
                 His passion for business, belief in continuous learning, and
@@ -148,12 +139,12 @@ export default function AboutPage() {
               </p>
 
               <blockquote className="mt-10 border-l-2 border-black pl-5">
-                <p className="font-serif text-lg font-medium leading-snug text-foreground">
+                <p className="font-sans text-lg font-medium leading-snug text-foreground">
                   &ldquo;Success comes through continuous learning, dedication,
                   and hard work.&rdquo;
                 </p>
-                <footer className="mt-3 font-sans text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                  — KKRV
+                <footer className="mt-3 font-sans text-xs text-muted-foreground">
+                  — <KkrvName />
                 </footer>
               </blockquote>
             </div>
@@ -164,10 +155,8 @@ export default function AboutPage() {
       {/* ── Areas of expertise ────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
-            Expertise
-          </p>
-          <h2 className="mt-6 max-w-lg font-serif text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
+          <p className="type-rolex-overline text-muted-foreground">Expertise</p>
+          <h2 className="mt-6 max-w-lg font-sans text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
             A leader across every dimension of business.
           </h2>
           <ul className="mt-14 grid gap-10 sm:grid-cols-2">
@@ -177,7 +166,7 @@ export default function AboutPage() {
                   {item.label}
                 </h3>
                 <p className="mt-4 font-sans text-sm leading-[1.85] text-muted-foreground">
-                  {item.body}
+                  <KkrvSpacedText text={item.body} />
                 </p>
               </li>
             ))}
@@ -191,9 +180,7 @@ export default function AboutPage() {
         className="scroll-mt-20 border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28"
       >
         <div className="mx-auto grid max-w-5xl gap-16 sm:grid-cols-[1fr_2fr]">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground pt-1">
-            Presence
-          </p>
+          <p className="type-rolex-overline pt-1 text-muted-foreground">Presence</p>
           <div className="space-y-4 font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
             <p>
               VVR Industries Limited operates across multiple markets with a
@@ -211,7 +198,7 @@ export default function AboutPage() {
       {/* ── CTA ───────────────────────────────────────────────────── */}
       <section className="px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-xl text-center">
-          <p className="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
+          <p className="font-sans text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
             Ready to connect with VVR?
           </p>
           <p className="mt-6 font-sans text-sm leading-relaxed text-muted-foreground">

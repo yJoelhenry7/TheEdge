@@ -31,10 +31,10 @@ export default function EMediaWorksPage() {
       {/* ── Header ───────────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-4xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="type-rolex-overline text-muted-foreground">
             Business · VVR Industries
           </p>
-          <h1 className="mt-6 font-serif text-4xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-5xl">
+          <h1 className="mt-6 font-sans text-4xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-5xl">
             eMedia Works
           </h1>
           <p className="mt-8 max-w-xl font-sans text-base leading-[1.9] text-muted-foreground">
@@ -48,10 +48,10 @@ export default function EMediaWorksPage() {
       {/* ── What we do ───────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="type-rolex-overline text-muted-foreground">
             What we do
           </p>
-          <h2 className="mt-6 max-w-lg font-serif text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
+          <h2 className="mt-6 max-w-lg font-sans text-2xl font-medium leading-snug tracking-tight text-foreground sm:text-3xl">
             Media that moves people and markets.
           </h2>
           <ul className="mt-14 grid gap-10 sm:grid-cols-2">
@@ -72,7 +72,7 @@ export default function EMediaWorksPage() {
       {/* ── How it works ─────────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+          <p className="type-rolex-overline text-muted-foreground">
             Process
           </p>
           <ol className="mt-10 space-y-8">
@@ -97,7 +97,7 @@ export default function EMediaWorksPage() {
       {/* ── CTA ──────────────────────────────────────────────────── */}
       <section className="px-6 py-20 sm:px-10">
         <div className="mx-auto max-w-xl text-center">
-          <p className="font-serif text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
+          <p className="font-sans text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
             Ready to build your media presence?
           </p>
           <p className="mt-6 font-sans text-sm leading-relaxed text-muted-foreground">

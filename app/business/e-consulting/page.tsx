@@ -7,9 +7,7 @@ export const metadata: Metadata = {
 export default function EConsultingPage() {
   return (
     <div className="mx-auto max-w-3xl flex-1 px-4 py-16">
-      <p className="text-xs font-medium uppercase tracking-[0.2em] text-foreground">
-        Business
-      </p>
+      <p className="type-rolex-overline text-muted-foreground">Business</p>
       <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground">
         eConsulting
       </h1>

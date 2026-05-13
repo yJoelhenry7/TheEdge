@@ -8,7 +8,7 @@ import { ChevronDown, Heart, MapPin, Search } from "lucide-react"
 
 import { sitePages } from "@/lib/site-pages"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
   Collapsible,
   CollapsibleContent,
@@ -122,6 +122,14 @@ export function SiteHeader() {
                     About
                   </Link>
 
+                  <Link
+                    href="/locations"
+                    className={navLinkClass()}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Locations
+                  </Link>
+
                   <Collapsible className="space-y-1">
                     <CollapsibleTrigger
                       className={cn(
@@ -186,16 +194,16 @@ export function SiteHeader() {
             >
               <Search {...iconProps} />
             </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="size-9 rounded-none hover:bg-transparent hover:opacity-70"
+            <Link
+              href="/locations"
+              className={cn(
+                buttonVariants({ variant: "ghost", size: "icon" }),
+                "size-9 rounded-none hover:bg-transparent hover:opacity-70"
+              )}
               aria-label="Locations"
-              nativeButton={false}
-              render={<Link href="/about#presence" />}
             >
               <MapPin {...iconProps} />
-            </Button>
+            </Link>
             <Button
               variant="ghost"
               size="icon"

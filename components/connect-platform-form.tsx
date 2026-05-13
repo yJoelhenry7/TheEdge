@@ -31,7 +31,7 @@ export function ConnectPlatformForm() {
   if (submitted) {
     return (
       <div className="border border-black/15 bg-white px-8 py-12 text-center">
-        <p className="font-serif text-xl font-medium tracking-tight text-foreground">
+        <p className="font-sans text-xl font-medium tracking-tight text-foreground">
           Thank you
         </p>
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
@@ -115,7 +115,7 @@ function SellerForm({
   return (
     <form onSubmit={onSubmit} className="space-y-8 border border-black/15 p-6 sm:p-8">
       <div>
-        <h2 className="font-serif text-lg font-medium text-foreground">
+        <h2 className="font-sans text-lg font-medium text-foreground">
           Seller details
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -208,7 +208,7 @@ function BuyerForm({
   return (
     <form onSubmit={onSubmit} className="space-y-8 border border-black/15 p-6 sm:p-8">
       <div>
-        <h2 className="font-serif text-lg font-medium text-foreground">
+        <h2 className="font-sans text-lg font-medium text-foreground">
           Buyer details
         </h2>
         <p className="mt-2 text-sm text-muted-foreground">
