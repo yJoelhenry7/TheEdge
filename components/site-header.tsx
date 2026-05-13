@@ -43,10 +43,11 @@ const businessLinks = [
   },
 ] as const
 
-function navLinkClass(indent = false) {
+function navLinkClass(depth: 0 | 1 | 2 = 0) {
   return cn(
     "block rounded-md px-2 py-2 text-sm text-foreground transition-colors hover:bg-muted",
-    indent && "pl-4"
+    depth === 1 && "pl-4",
+    depth === 2 && "pl-7"
   )
 }
 
@@ -141,16 +142,37 @@ export function SiteHeader() {
                       <ChevronDown className="size-4 shrink-0 transition-transform" />
                     </CollapsibleTrigger>
                     <CollapsibleContent className="flex flex-col gap-1">
-                      {businessLinks.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          className={navLinkClass(true)}
-                          onClick={() => setMenuOpen(false)}
+                      <Collapsible className="space-y-1" defaultOpen>
+                        <CollapsibleTrigger
+                          className={cn(
+                            "flex w-full items-center justify-between rounded-md px-2 py-2 text-left text-sm font-medium hover:bg-muted",
+                            "pl-4",
+                            "[&[data-panel-open]_svg]:rotate-180"
+                          )}
                         >
-                          {item.label}
-                        </Link>
-                      ))}
+                          The Edge solutions
+                          <ChevronDown className="size-4 shrink-0 transition-transform" />
+                        </CollapsibleTrigger>
+                        <CollapsibleContent className="flex flex-col gap-1">
+                          <Link
+                            href="/business/the-edge-solutions"
+                            className={navLinkClass(2)}
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            Overview
+                          </Link>
+                          {businessLinks.map((item) => (
+                            <Link
+                              key={item.href}
+                              href={item.href}
+                              className={navLinkClass(2)}
+                              onClick={() => setMenuOpen(false)}
+                            >
+                              {item.label}
+                            </Link>
+                          ))}
+                        </CollapsibleContent>
+                      </Collapsible>
                     </CollapsibleContent>
                   </Collapsible>
 

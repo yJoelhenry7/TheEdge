@@ -14,6 +14,12 @@ export const sitePages: SitePage[] = [
     keywords: ["delhi", "ravulapalem", "andhra pradesh", "offices", "map", "presence"],
   },
   {
+    title: "The Edge solutions",
+    href: "/business/the-edge-solutions",
+    group: "Business",
+    keywords: ["the edge", "solutions", "suite", "services", "vvr"],
+  },
+  {
     title: "eConsulting",
     href: "/business/e-consulting",
     group: "Business",
