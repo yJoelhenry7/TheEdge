@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 
 import { EarthHero } from "@/components/earth-hero"
@@ -14,7 +15,22 @@ const offerings = [
     href: "/business/e-connect",
   },
   {
-    title: "Your platform, connected",
+    title: "eMedia Works",
+    line: "Full-spectrum media production and publishing for ambitious brands.",
+    href: "/business/e-media-works",
+  },
+  {
+    title: "eInvestors",
+    line: "Investor intelligence, relations, and opportunity — built on transparency.",
+    href: "/business/e-investors",
+  },
+  {
+    title: "eMarketing Services",
+    line: "Creative excellence and performance discipline to grow brands that endure.",
+    href: "/business/e-marketing-services",
+  },
+  {
+    title: "Platform Integration",
     line: "A structured path to bring your stack into eConnect.",
     href: "/business/connect-your-platform",
   },
@@ -84,16 +100,16 @@ export default function HomePage() {
       >
         <div className="mx-auto flex max-w-xl flex-col items-center text-center">
           <div
-            className="flex size-[4.5rem] items-center justify-center rounded-full border border-black"
+            className="flex size-[5.25rem] items-center justify-center rounded-full border border-black sm:size-[5.5rem]"
             aria-hidden
           >
-            <span className="font-serif text-lg font-medium tracking-[0.2em]">
-              TE
+            <span className="font-serif text-base font-medium tracking-[0.12em] sm:text-lg">
+              VVR
             </span>
           </div>
 
           <h2 className="mt-12 font-serif text-[1.65rem] font-medium leading-snug tracking-[-0.02em] text-foreground sm:text-3xl md:text-[2.125rem]">
-            TheEdge brings composure to ambition — consulting that clarifies,
+            VVR brings composure to ambition — consulting that clarifies,
             and platforms that endure.
           </h2>
 
@@ -108,8 +124,54 @@ export default function HomePage() {
             href="/about"
             className="mt-12 font-sans text-xs font-medium uppercase tracking-[0.22em] text-foreground underline-offset-[0.35rem] transition-opacity hover:opacity-60 hover:underline"
           >
-            Discover TheEdge
+            Discover VVR
           </Link>
+        </div>
+      </section>
+
+      {/* ── Founder teaser ───────────────────────────────────────── */}
+      <section className="border-t border-black/10 bg-white px-6 py-16 sm:px-10 sm:py-20">
+        <div className="mx-auto max-w-5xl">
+          <div className="grid items-center gap-10 sm:grid-cols-[auto_1fr] sm:gap-16">
+            {/* Photo — small, square crop */}
+            <div className="mx-auto sm:mx-0">
+              <div className="relative size-32 overflow-hidden rounded-full border border-black/10 sm:size-36">
+                <Image
+                  src="/founder.jpeg"
+                  alt="KKRV — Co-Founder"
+                  fill
+                  className="object-cover object-top"
+                  sizes="144px"
+                />
+              </div>
+            </div>
+
+            {/* Text */}
+            <div className="text-center sm:text-left">
+              <p className="font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
+                Co-Founder
+              </p>
+              <p className="mt-3 font-serif text-xl font-medium tracking-tight text-foreground sm:text-2xl">
+                KKRV
+              </p>
+              <p className="mt-1 font-sans text-xs text-muted-foreground">
+                Founder, VVR Industries Limited · Marketing Director, VVR Industries
+              </p>
+              <p className="mt-5 max-w-2xl font-sans text-sm leading-[1.85] text-muted-foreground">
+                A visionary entrepreneur known for dedication, strategic
+                thinking, and extensive experience across multiple industries.
+                Through his visionary genius, KKRV set the course for an
+                adventure which has given rise to exceptional products and an
+                unparalleled brand built on perpetual excellence.
+              </p>
+              <Link
+                href="/about"
+                className="mt-6 inline-block font-sans text-xs font-medium uppercase tracking-[0.22em] text-foreground underline-offset-4 transition-opacity hover:opacity-60 hover:underline"
+              >
+                Read the full story
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -119,11 +181,11 @@ export default function HomePage() {
           <p className="text-center font-sans text-[0.65rem] font-medium uppercase tracking-[0.32em] text-muted-foreground">
             Capabilities
           </p>
-          <ul className="mt-14 grid gap-14 sm:grid-cols-3 sm:gap-0">
+          <ul className="mt-14 grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {offerings.map((item) => (
               <li
                 key={item.href}
-                className="flex flex-col items-center text-center sm:items-start sm:border-l sm:border-black/10 sm:pl-10 sm:text-left sm:first:border-l-0 sm:first:pl-0"
+                className="flex flex-col border-t border-black/10 pt-8"
               >
                 <h3 className="font-serif text-xl font-medium tracking-tight text-foreground">
                   {item.title}
@@ -156,7 +218,7 @@ export default function HomePage() {
             href="/careers"
             className="mt-8 inline-block font-sans text-xs font-medium uppercase tracking-[0.22em] text-foreground underline-offset-[0.35rem] transition-opacity hover:opacity-60 hover:underline"
           >
-            Careers at TheEdge
+            Careers at VVR
           </Link>
         </div>
       </section>

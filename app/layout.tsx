@@ -23,11 +23,11 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "TheEdge",
-    template: "%s · TheEdge",
+    default: "VVR",
+    template: "%s · VVR",
   },
   description:
-    "TheEdge — consulting, connectivity, and careers. A monochrome brand experience.",
+    "VVR Industries Limited — consulting, connectivity, and careers. Precision, performance and reliability.",
 }
 
 export default function RootLayout({

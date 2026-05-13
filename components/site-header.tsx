@@ -34,6 +34,9 @@ import {
 const businessLinks = [
   { label: "eConsulting", href: "/business/e-consulting" },
   { label: "eConnect", href: "/business/e-connect" },
+  { label: "eMedia Works", href: "/business/e-media-works" },
+  { label: "eInvestors", href: "/business/e-investors" },
+  { label: "eMarketing Services", href: "/business/e-marketing-services" },
   {
     label: "Connect your platform with eConnect?",
     href: "/business/connect-your-platform",
@@ -93,7 +96,7 @@ export function SiteHeader() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-black/10 bg-white">
-        <div className="mx-auto flex h-[3.25rem] max-w-[1400px] items-center px-5 sm:h-14 sm:px-8 lg:px-12">
+        <div className="mx-auto flex h-[3.5rem] max-w-[1400px] items-center px-5 sm:h-16 sm:px-8 lg:px-12">
           <div className="flex min-w-0 flex-1 justify-start">
             <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
               <SheetTrigger
@@ -160,15 +163,15 @@ export function SiteHeader() {
           <div className="flex flex-1 justify-center px-2">
             <Link
               href="/"
-              className="relative block h-7 w-[6.5rem] shrink-0 sm:h-8 sm:w-[7.5rem]"
+              className="relative block h-10 w-[9rem] shrink-0 sm:h-12 sm:w-[10.5rem]"
             >
               <Image
                 src="/logo.png"
-                alt="TheEdge"
+                alt="VVR"
                 fill
                 className="object-contain object-center"
                 priority
-                sizes="120px"
+                sizes="(max-width: 640px) 144px, 168px"
               />
             </Link>
           </div>
@@ -211,7 +214,7 @@ export function SiteHeader() {
         open={searchOpen}
         onOpenChange={setSearchOpen}
         title="Search pages"
-        description="Find a page on TheEdge"
+        description="Find a page on VVR"
         showCloseButton
       >
         <CommandInput placeholder="Search pages…" />

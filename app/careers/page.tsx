@@ -57,7 +57,7 @@ export default function CareersPage() {
 
       <p className="mt-10 text-sm text-muted-foreground">
         General applications:{" "}
-        <span className="text-foreground">talent@theedge.placeholder</span>
+        <span className="text-foreground">talent@vvrindustries.com</span>
       </p>
     </div>
   )

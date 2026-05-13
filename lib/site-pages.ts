@@ -6,29 +6,47 @@ export type SitePage = {
 }
 
 export const sitePages: SitePage[] = [
-  { title: "Home", href: "/", keywords: ["landing", "theedge"] },
-  { title: "About", href: "/about", keywords: ["company", "directors"] },
+  { title: "Home", href: "/", keywords: ["landing", "vvr", "home"] },
+  { title: "About", href: "/about", keywords: ["company", "kkrv", "vvr", "founders"] },
   {
     title: "eConsulting",
     href: "/business/e-consulting",
     group: "Business",
-    keywords: ["consulting", "digital"],
+    keywords: ["consulting", "digital", "strategy"],
   },
   {
     title: "eConnect",
     href: "/business/e-connect",
     group: "Business",
-    keywords: ["connect", "platform"],
+    keywords: ["connect", "platform", "integration"],
   },
   {
     title: "Connect your platform with eConnect?",
     href: "/business/connect-your-platform",
     group: "Business",
-    keywords: ["integration", "partner", "api"],
+    keywords: ["integration", "partner", "api", "seller", "buyer"],
+  },
+  {
+    title: "eMedia Works",
+    href: "/business/e-media-works",
+    group: "Business",
+    keywords: ["media", "content", "production", "publishing", "creative"],
+  },
+  {
+    title: "eInvestors",
+    href: "/business/e-investors",
+    group: "Business",
+    keywords: ["investors", "investment", "portfolio", "relations", "stakeholders"],
+  },
+  {
+    title: "eMarketing Services",
+    href: "/business/e-marketing-services",
+    group: "Business",
+    keywords: ["marketing", "brand", "digital", "growth", "campaigns"],
   },
   {
     title: "Careers",
     href: "/careers",
-    keywords: ["jobs", "hiring", "recruitment"],
+    keywords: ["jobs", "hiring", "recruitment", "talent"],
   },
 ]
