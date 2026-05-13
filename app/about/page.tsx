@@ -12,22 +12,22 @@ const expertise = [
   {
     label: "Entrepreneurship",
     body:
-      "From an early stage in his career, KKRV demonstrated a strong passion for business and entrepreneurship. His curiosity to learn, willingness to take on challenges, and ability to adapt to changing markets helped him build a remarkable reputation in the business community.",
+      "From an early stage in his career, KKRV — co-founder of VVR Industries Limited — demonstrated a strong passion for business and entrepreneurship. His curiosity to learn, willingness to take on challenges, and ability to adapt to changing markets helped him build a remarkable reputation in the business community.",
   },
   {
     label: "Strategy & Operations",
     body:
-      "As Founder of VVR Industries Limited, KKRV has played a vital role in building the company with a clear vision for growth and innovation. His leadership style focuses on quality, customer satisfaction, and sustainable business development — continuously exploring new opportunities and strengthening the company's position.",
+      "As Co-Founder of VVR Industries Limited, KKRV has played a vital role in building the company with a clear vision for growth and innovation. His leadership style focuses on quality, customer satisfaction, and sustainable business development — continuously exploring new opportunities and strengthening the company's position.",
   },
   {
     label: "Marketing & Brand",
     body:
-      "As Marketing Director of VVR Industries, KKRV brings creativity and strategic insight into business marketing and brand development. His deep understanding of market trends, customer behaviour, and business communication allows him to create impactful strategies that combine traditional values with modern techniques.",
+      "As Co-Founder and Marketing Director of VVR Industries, KKRV brings creativity and strategic insight into business marketing and brand development. His deep understanding of market trends, customer behaviour, and business communication allows him to create impactful strategies that combine traditional values with modern techniques.",
   },
   {
     label: "Multi-Industry Experience",
     body:
-      "One of the most remarkable qualities of KKRV is his diverse experience across various industries and business sectors. His broad expertise enables him to understand complex business challenges — whether it is management, marketing, operations, or business development — and find innovative solutions.",
+      "As co-founder, one of the most remarkable qualities of KKRV is his diverse experience across various industries and business sectors. His broad expertise enables him to understand complex business challenges — whether it is management, marketing, operations, or business development — and find innovative solutions.",
   },
 ]
 
@@ -73,8 +73,7 @@ export default function AboutPage() {
               and human adventure.
             </p>
             <p className="font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
-              Today, <KkrvName />
-              &apos;s personality and his work continue to inspire the company and
+              Today, <KkrvName />, co-founder — his personality and his work continue to inspire the company and
               permeate its corporate culture. The entrepreneur&apos;s influence is
               evident in the aesthetics and principal characteristics of the
               industry that remain faithful to the original brand — as well as in
@@ -85,7 +84,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Founder profile ───────────────────────────────────────── */}
+      {/* ── Co-founder profile ───────────────────────────────────────── */}
       <section className="border-b border-black/10 px-6 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-5xl">
           <p className="type-rolex-overline text-muted-foreground">Co-Founder</p>
@@ -119,13 +118,13 @@ export default function AboutPage() {
                 <KkrvName />
               </h2>
               <p className="mt-2 font-sans text-sm uppercase tracking-[0.22em] text-muted-foreground">
-                Founder · VVR Industries Limited
+                Co-Founder · VVR Industries Limited
                 <br />
                 Marketing Director · VVR Industries
               </p>
 
               <p className="mt-8 font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
-                <KkrvSpacedText text="A visionary entrepreneur driving innovation and business excellence. KKRV is a dynamic business leader known for his dedication, strategic thinking, and extensive experience across multiple industries." />
+                <KkrvSpacedText text="A visionary entrepreneur and co-founder, driving innovation and business excellence. KKRV is a dynamic business leader known for his dedication, strategic thinking, and extensive experience across multiple industries." />
               </p>
               <p className="mt-5 font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
                 <KkrvSpacedText text="The success of VVR is inextricably linked to the spirit of enterprise of its co-founder. Through his visionary genius and adeptness in all fields related to industrial development — technology, communication, organisation and distribution — KKRV set the course for an adventure which has given rise to exceptional articles and an unparalleled brand." />

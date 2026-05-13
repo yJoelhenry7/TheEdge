@@ -130,7 +130,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Founder teaser ───────────────────────────────────────── */}
+      {/* ── Co-founder teaser ───────────────────────────────────────── */}
       <section className="border-t border-black/10 bg-white px-6 py-16 sm:px-10 sm:py-20">
         <div className="mx-auto max-w-5xl">
           <div className="grid items-center gap-10 sm:grid-cols-[auto_1fr] sm:gap-16">
@@ -154,10 +154,10 @@ export default function HomePage() {
                 <KkrvName />
               </p>
               <p className="mt-1 font-sans text-xs text-muted-foreground">
-                Founder, VVR Industries Limited · Marketing Director, VVR Industries
+                Co-Founder, VVR Industries Limited · Marketing Director, VVR Industries
               </p>
               <p className="mt-5 max-w-2xl font-sans text-sm leading-[1.85] text-muted-foreground">
-                <KkrvSpacedText text="A visionary entrepreneur known for dedication, strategic thinking, and extensive experience across multiple industries. Through his visionary genius, KKRV set the course for an adventure which has given rise to exceptional products and an unparalleled brand built on perpetual excellence." />
+                <KkrvSpacedText text="A visionary entrepreneur and co-founder, known for dedication, strategic thinking, and extensive experience across multiple industries. Through his visionary genius, KKRV set the course for an adventure which has given rise to exceptional products and an unparalleled brand built on perpetual excellence." />
               </p>
               <Link
                 href="/about"

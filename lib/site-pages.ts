@@ -7,7 +7,7 @@ export type SitePage = {
 
 export const sitePages: SitePage[] = [
   { title: "Home", href: "/", keywords: ["landing", "vvr", "home"] },
-  { title: "About", href: "/about", keywords: ["company", "kkrv", "vvr", "founders"] },
+  { title: "About", href: "/about", keywords: ["company", "kkrv", "vvr", "co-founder", "co-founders"] },
   {
     title: "Locations",
     href: "/locations",

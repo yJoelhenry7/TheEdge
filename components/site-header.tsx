@@ -3,25 +3,15 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { ChevronDown, Heart, MapPin, Search } from "lucide-react"
+import { ChevronDown, MapPin } from "lucide-react"
 
-import { sitePages } from "@/lib/site-pages"
 import { cn } from "@/lib/utils"
-import { Button, buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command"
 import { Separator } from "@/components/ui/separator"
 import {
   Sheet,
@@ -69,205 +59,132 @@ const iconProps = {
 } as const
 
 export function SiteHeader() {
-  const router = useRouter()
   const [menuOpen, setMenuOpen] = React.useState(false)
-  const [searchOpen, setSearchOpen] = React.useState(false)
-
-  React.useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault()
-        setSearchOpen((open) => !open)
-      }
-    }
-    document.addEventListener("keydown", onKey)
-    return () => document.removeEventListener("keydown", onKey)
-  }, [])
-
-  const grouped = React.useMemo(() => {
-    const map = new Map<string, typeof sitePages>()
-    for (const p of sitePages) {
-      const g = p.group ?? "General"
-      if (!map.has(g)) map.set(g, [])
-      map.get(g)!.push(p)
-    }
-    return map
-  }, [])
 
   return (
-    <>
-      <header className="sticky top-0 z-40 border-b border-black/10 bg-white">
-        <div className="mx-auto flex h-[3.5rem] max-w-[1400px] items-center px-5 sm:h-16 sm:px-8 lg:px-12">
-          <div className="flex min-w-0 flex-1 justify-start">
-            <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
-              <SheetTrigger
-                className={cn(
-                  "inline-flex size-10 shrink-0 items-center justify-center rounded-none border-0 bg-transparent text-foreground outline-none transition-opacity hover:opacity-70 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
-                )}
-                aria-label="Open menu"
-              >
-                <ThinMenuGlyph />
-              </SheetTrigger>
-              <SheetContent side="left" className="w-[min(100%,20rem)] gap-0">
-                <SheetHeader className="border-b border-black/10 px-4 py-4 text-left">
-                  <SheetTitle className="font-sans text-sm font-medium tracking-wide">
-                    Menu
-                  </SheetTitle>
-                </SheetHeader>
-                <nav className="flex flex-col gap-1 p-4">
-                  <Link
-                    href="/about"
-                    className={navLinkClass()}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    About
-                  </Link>
+    <header className="sticky top-0 z-40 border-b border-black/10 bg-white">
+      <div className="mx-auto flex h-[3.5rem] max-w-[1400px] items-center px-5 sm:h-16 sm:px-8 lg:px-12">
+        <div className="flex min-w-0 flex-1 justify-start">
+          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
+            <SheetTrigger
+              className={cn(
+                "inline-flex size-10 shrink-0 items-center justify-center rounded-none border-0 bg-transparent text-foreground outline-none transition-opacity hover:opacity-70 focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
+              )}
+              aria-label="Open menu"
+            >
+              <ThinMenuGlyph />
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[min(100%,20rem)] gap-0">
+              <SheetHeader className="border-b border-black/10 px-4 py-4 text-left">
+                <SheetTitle className="font-sans text-sm font-medium tracking-wide">
+                  Menu
+                </SheetTitle>
+              </SheetHeader>
+              <nav className="flex flex-col gap-1 p-4">
+                <Link
+                  href="/about"
+                  className={navLinkClass()}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  About
+                </Link>
 
-                  <Link
-                    href="/locations"
-                    className={navLinkClass()}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Locations
-                  </Link>
+                <Link
+                  href="/locations"
+                  className={navLinkClass()}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Locations
+                </Link>
 
-                  <Collapsible className="space-y-1">
-                    <CollapsibleTrigger
-                      className={cn(
-                        "flex w-full items-center justify-between rounded-md px-2 py-2 text-left text-sm font-medium hover:bg-muted",
-                        "[&[data-panel-open]_svg]:rotate-180"
-                      )}
-                    >
-                      Business
-                      <ChevronDown className="size-4 shrink-0 transition-transform" />
-                    </CollapsibleTrigger>
-                    <CollapsibleContent className="flex flex-col gap-1">
-                      <Collapsible className="space-y-1" defaultOpen>
-                        <CollapsibleTrigger
-                          className={cn(
-                            "flex w-full items-center justify-between rounded-md px-2 py-2 text-left text-sm font-medium hover:bg-muted",
-                            "pl-4",
-                            "[&[data-panel-open]_svg]:rotate-180"
-                          )}
+                <Collapsible className="space-y-1">
+                  <CollapsibleTrigger
+                    className={cn(
+                      "flex w-full items-center justify-between rounded-md px-2 py-2 text-left text-sm font-medium hover:bg-muted",
+                      "[&[data-panel-open]_svg]:rotate-180"
+                    )}
+                  >
+                    Business
+                    <ChevronDown className="size-4 shrink-0 transition-transform" />
+                  </CollapsibleTrigger>
+                  <CollapsibleContent className="flex flex-col gap-1">
+                    <Collapsible className="space-y-1" defaultOpen>
+                      <CollapsibleTrigger
+                        className={cn(
+                          "flex w-full items-center justify-between rounded-md px-2 py-2 text-left text-sm font-medium hover:bg-muted",
+                          "pl-4",
+                          "[&[data-panel-open]_svg]:rotate-180"
+                        )}
+                      >
+                        The Edge solutions
+                        <ChevronDown className="size-4 shrink-0 transition-transform" />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="flex flex-col gap-1">
+                        <Link
+                          href="/business/the-edge-solutions"
+                          className={navLinkClass(2)}
+                          onClick={() => setMenuOpen(false)}
                         >
-                          The Edge solutions
-                          <ChevronDown className="size-4 shrink-0 transition-transform" />
-                        </CollapsibleTrigger>
-                        <CollapsibleContent className="flex flex-col gap-1">
+                          Overview
+                        </Link>
+                        {businessLinks.map((item) => (
                           <Link
-                            href="/business/the-edge-solutions"
+                            key={item.href}
+                            href={item.href}
                             className={navLinkClass(2)}
                             onClick={() => setMenuOpen(false)}
                           >
-                            Overview
+                            {item.label}
                           </Link>
-                          {businessLinks.map((item) => (
-                            <Link
-                              key={item.href}
-                              href={item.href}
-                              className={navLinkClass(2)}
-                              onClick={() => setMenuOpen(false)}
-                            >
-                              {item.label}
-                            </Link>
-                          ))}
-                        </CollapsibleContent>
-                      </Collapsible>
-                    </CollapsibleContent>
-                  </Collapsible>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </CollapsibleContent>
+                </Collapsible>
 
-                  <Separator className="my-2 bg-black/15" />
+                <Separator className="my-2 bg-black/15" />
 
-                  <Link
-                    href="/careers"
-                    className={navLinkClass()}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Careers
-                  </Link>
-                </nav>
-              </SheetContent>
-            </Sheet>
-          </div>
-
-          <div className="flex flex-1 justify-center px-2">
-            <Link
-              href="/"
-              className="relative block h-10 w-[9rem] shrink-0 sm:h-12 sm:w-[10.5rem]"
-            >
-              <Image
-                src="/logo.png"
-                alt="VVR"
-                fill
-                className="object-contain object-center"
-                priority
-                sizes="(max-width: 640px) 144px, 168px"
-              />
-            </Link>
-          </div>
-
-          <div className="flex flex-1 items-center justify-end gap-0.5 sm:gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="size-9 rounded-none hover:bg-transparent hover:opacity-70"
-              aria-label="Search pages"
-              onClick={() => setSearchOpen(true)}
-            >
-              <Search {...iconProps} />
-            </Button>
-            <Link
-              href="/locations"
-              className={cn(
-                buttonVariants({ variant: "ghost", size: "icon" }),
-                "size-9 rounded-none hover:bg-transparent hover:opacity-70"
-              )}
-              aria-label="Locations"
-            >
-              <MapPin {...iconProps} />
-            </Link>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="size-9 rounded-none hover:bg-transparent hover:opacity-70"
-              aria-label="Saved"
-              nativeButton={false}
-              render={<Link href="/#discover" />}
-            >
-              <Heart {...iconProps} />
-            </Button>
-          </div>
-        </div>
-      </header>
-
-      <CommandDialog
-        open={searchOpen}
-        onOpenChange={setSearchOpen}
-        title="Search pages"
-        description="Find a page on VVR"
-        showCloseButton
-      >
-        <CommandInput placeholder="Search pages…" />
-        <CommandList>
-          <CommandEmpty>No pages found.</CommandEmpty>
-          {[...grouped.entries()].map(([group, pages]) => (
-            <CommandGroup key={group} heading={group}>
-              {pages.map((page) => (
-                <CommandItem
-                  key={page.href}
-                  value={`${page.title} ${page.keywords?.join(" ") ?? ""}`}
-                  onSelect={() => {
-                    setSearchOpen(false)
-                    router.push(page.href)
-                  }}
+                <Link
+                  href="/careers"
+                  className={navLinkClass()}
+                  onClick={() => setMenuOpen(false)}
                 >
-                  {page.title}
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          ))}
-        </CommandList>
-      </CommandDialog>
-    </>
+                  Careers
+                </Link>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+
+        <div className="flex flex-1 justify-center px-2">
+          <Link
+            href="/"
+            className="relative block h-10 w-[9rem] shrink-0 sm:h-12 sm:w-[10.5rem]"
+          >
+            <Image
+              src="/logo.png"
+              alt="VVR"
+              fill
+              className="object-contain object-center"
+              priority
+              sizes="(max-width: 640px) 144px, 168px"
+            />
+          </Link>
+        </div>
+
+        <div className="flex flex-1 items-center justify-end">
+          <Link
+            href="/locations"
+            className={cn(
+              buttonVariants({ variant: "ghost", size: "icon" }),
+              "size-9 rounded-none hover:bg-transparent hover:opacity-70"
+            )}
+            aria-label="Locations"
+          >
+            <MapPin {...iconProps} />
+          </Link>
+        </div>
+      </div>
+    </header>
   )
 }

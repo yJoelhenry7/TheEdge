@@ -66,7 +66,7 @@ export default function EMarketingServicesPage() {
               Marketing built on intelligence, executed with precision.
             </h2>
             <p className="font-sans text-[0.9375rem] leading-[1.9] text-muted-foreground">
-              Under the leadership of <KkrvName /> — Marketing Director of VVR
+              Under the leadership of <KkrvName /> — Co-Founder and Marketing Director of VVR
               Industries — our eMarketing Services practice combines deep
               market insight with modern execution capabilities. We do not
               separate strategy from delivery: the same team that sets the
