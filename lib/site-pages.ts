@@ -32,7 +32,7 @@ export const sitePages: SitePage[] = [
     keywords: ["connect", "platform", "integration"],
   },
   {
-    title: "Connect your platform with eConnect?",
+    title: "Connect your bussiness with ePlatform?",
     href: "/business/connect-your-platform",
     group: "Business",
     keywords: ["integration", "partner", "api", "seller", "buyer"],

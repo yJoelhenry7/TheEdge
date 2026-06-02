@@ -1,13 +1,12 @@
 import nodemailer from "nodemailer"
 import type SMTPTransport from "nodemailer/lib/smtp-transport"
 
-export type CareersTrack = "freelancer" | "volunteer" | "employment"
+import {
+  buildApplicantConfirmationEmail,
+  buildApplicationNotificationEmail,
+} from "@/lib/careers-email-templates"
 
-const TRACK_LABELS: Record<CareersTrack, string> = {
-  freelancer: "Freelancer application",
-  volunteer: "Volunteer application",
-  employment: "Full-time employment application",
-}
+export type CareersTrack = "freelancer" | "volunteer" | "employment"
 
 function getSmtpConfig(): SMTPTransport.Options {
   const host = process.env.SMTP_HOST
@@ -36,13 +35,6 @@ function getTransporter() {
   return nodemailer.createTransport(getSmtpConfig())
 }
 
-function formatFields(fields: Record<string, string>) {
-  return Object.entries(fields)
-    .filter(([, value]) => value.trim().length > 0)
-    .map(([key, value]) => `${key}: ${value}`)
-    .join("\n")
-}
-
 export async function sendCareersApplicationEmail({
   track,
   fields,
@@ -60,17 +52,15 @@ export async function sendCareersApplicationEmail({
     )
   }
 
-  const applicantEmail = fields.email?.trim()
-  const applicantName = fields.name?.trim() ?? "Applicant"
-  const label = TRACK_LABELS[track]
-  const subject = `[VVR Careers] ${label} — ${applicantName}`
+  const applicantEmail = fields["Email"]?.trim()
+  const applicantName = fields["Full name"]?.trim() ?? "Applicant"
+  const submittedAt = new Date()
 
-  const text = [
-    label,
-    `Submitted: ${new Date().toISOString()}`,
-    "",
-    formatFields(fields),
-  ].join("\n")
+  const notification = buildApplicationNotificationEmail({
+    track,
+    fields,
+    submittedAt,
+  })
 
   const transporter = getTransporter()
 
@@ -78,24 +68,23 @@ export async function sendCareersApplicationEmail({
     from: `"VVR Careers" <${from}>`,
     to,
     replyTo: applicantEmail || undefined,
-    subject,
-    text,
+    subject: notification.subject,
+    text: notification.text,
+    html: notification.html,
   })
 
   if (process.env.CAREERS_SEND_CONFIRMATION === "true" && applicantEmail) {
+    const confirmation = buildApplicantConfirmationEmail({
+      applicantName,
+      track,
+    })
+
     await transporter.sendMail({
       from: `"VVR Industries" <${from}>`,
       to: applicantEmail,
-      subject: "We received your VVR careers application",
-      text: [
-        `Hi ${applicantName},`,
-        "",
-        "Thank you for applying to VVR. We have received your submission and our talent team will review it.",
-        "",
-        "If your profile is a fit, we will contact you at this email address.",
-        "",
-        "— VVR Industries",
-      ].join("\n"),
+      subject: confirmation.subject,
+      text: confirmation.text,
+      html: confirmation.html,
     })
   }
 }

@@ -27,7 +27,7 @@ export default function CareersPage() {
           href="mailto:talent@vvrindustries.com"
           className="text-foreground underline-offset-4 transition-opacity hover:opacity-70 hover:underline"
         >
-          talent@vvrindustries.com
+          info@vvrindustries.com
         </Link>
       </p>
     </div>

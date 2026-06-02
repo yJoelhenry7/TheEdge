@@ -28,7 +28,7 @@ const businessLinks = [
   { label: "eInvestors", href: "/business/e-investors" },
   { label: "eMarketing Services", href: "/business/e-marketing-services" },
   {
-    label: "Connect your platform with eConnect?",
+    label: "Connect your bussiness with ePlatform?",
     href: "/business/connect-your-platform",
   },
 ] as const

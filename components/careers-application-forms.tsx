@@ -17,10 +17,21 @@ import {
   FieldLabel,
   FieldSet,
 } from "@/components/ui/field"
+import { LuckyNumberCube } from "@/components/lucky-number-cube"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import {
+  submitCareersApplicationAction,
+} from "@/app/careers/actions"
 import type { CareersTrack } from "@/lib/mail"
 import { cn } from "@/lib/utils"
+
+const selectClass = cn(
+  "h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none",
+  "focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm"
+)
+
+const LUCKY_NUMBERS = Array.from({ length: 9 }, (_, index) => String(index + 1))
 
 type Track = CareersTrack | null
 
@@ -46,30 +57,58 @@ async function submitCareersApplication(
   track: CareersTrack,
   fields: Record<string, string>
 ) {
-  const response = await fetch("/api/careers", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ track, fields }),
-  })
+  const result = await submitCareersApplicationAction(track, fields)
 
-  const payload = (await response.json().catch(() => ({}))) as {
-    error?: string
-  }
-
-  if (!response.ok) {
-    throw new Error(payload.error ?? "Could not submit your application.")
+  if (!result.ok) {
+    throw new Error(result.error)
   }
 }
 
 type ApplicationFormProps = {
   track: CareersTrack
+  idPrefix: string
   onDone: () => void
   children: React.ReactNode
 }
 
-function ApplicationForm({ track, onDone, children }: ApplicationFormProps) {
+function LuckyNumberField({
+  idPrefix,
+  value,
+  onChange,
+}: {
+  idPrefix: string
+  value: string
+  onChange: (value: string) => void
+}) {
+  const fieldId = `${idPrefix}-lucky-number`
+
+  return (
+    <Field>
+      <FieldLabel htmlFor={fieldId}>What&apos;s your lucky number</FieldLabel>
+      <FieldContent>
+        <select
+          id={fieldId}
+          name="luckyNumber"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className={selectClass}
+        >
+          <option value="">Select a number</option>
+          {LUCKY_NUMBERS.map((number) => (
+            <option key={number} value={number}>
+              {number}
+            </option>
+          ))}
+        </select>
+      </FieldContent>
+    </Field>
+  )
+}
+
+function ApplicationForm({ track, idPrefix, onDone, children }: ApplicationFormProps) {
   const [submitting, setSubmitting] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
+  const [luckyNumber, setLuckyNumber] = React.useState("")
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -92,20 +131,37 @@ function ApplicationForm({ track, onDone, children }: ApplicationFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-      {children}
-      {error ? (
-        <p className="text-sm text-destructive" role="alert">
-          {error}
-        </p>
-      ) : null}
-      <Button
-        type="submit"
-        disabled={submitting}
-        className="w-full rounded-none sm:w-auto"
-      >
-        {submitting ? "Sending…" : "Submit application"}
-      </Button>
+    <form onSubmit={handleSubmit} className="mt-8">
+      <div className="flex flex-col gap-8 sm:flex-row sm:items-start">
+        <div className="min-w-0 flex-1 space-y-6">
+          {children}
+          <FieldSet>
+            <FieldGroup className="gap-5">
+              <LuckyNumberField
+                idPrefix={idPrefix}
+                value={luckyNumber}
+                onChange={setLuckyNumber}
+              />
+            </FieldGroup>
+          </FieldSet>
+          {error ? (
+            <p className="text-sm text-destructive" role="alert">
+              {error}
+            </p>
+          ) : null}
+          <Button
+            type="submit"
+            disabled={submitting}
+            className="w-full rounded-none sm:w-auto"
+          >
+            {submitting ? "Sending…" : "Submit application"}
+          </Button>
+        </div>
+        <LuckyNumberCube
+          number={luckyNumber}
+          className="mx-auto shrink-0 sm:sticky sm:top-6 sm:mx-0 sm:pt-2"
+        />
+      </div>
     </form>
   )
 }
@@ -182,7 +238,7 @@ export function CareersApplicationForms() {
           if (!next) close()
         }}
       >
-        <DialogContent className="max-h-[min(90vh,720px)] max-w-lg gap-0 overflow-y-auto p-0 sm:max-w-lg" showCloseButton>
+        <DialogContent className="max-h-[min(90vh,720px)] max-w-lg gap-0 overflow-y-auto p-0 sm:max-w-2xl" showCloseButton>
           <div className="p-6 sm:p-8">
             <DialogHeader>
               <DialogTitle className="font-sans text-xl tracking-tight">
@@ -207,7 +263,7 @@ export function CareersApplicationForms() {
           if (!next) close()
         }}
       >
-        <DialogContent className="max-h-[min(90vh,720px)] max-w-lg gap-0 overflow-y-auto p-0 sm:max-w-lg" showCloseButton>
+        <DialogContent className="max-h-[min(90vh,720px)] max-w-lg gap-0 overflow-y-auto p-0 sm:max-w-2xl" showCloseButton>
           <div className="p-6 sm:p-8">
             <DialogHeader>
               <DialogTitle className="font-sans text-xl tracking-tight">
@@ -232,7 +288,7 @@ export function CareersApplicationForms() {
           if (!next) close()
         }}
       >
-        <DialogContent className="max-h-[min(90vh,800px)] max-w-lg gap-0 overflow-y-auto p-0 sm:max-w-lg" showCloseButton>
+        <DialogContent className="max-h-[min(90vh,800px)] max-w-lg gap-0 overflow-y-auto p-0 sm:max-w-2xl" showCloseButton>
           <div className="p-6 sm:p-8">
             <DialogHeader>
               <DialogTitle className="font-sans text-xl tracking-tight">
@@ -271,7 +327,7 @@ function ThanksBlurb({ onReset }: { onReset: () => void }) {
 
 function FreelancerForm({ onDone }: { onDone: () => void }) {
   return (
-    <ApplicationForm track="freelancer" onDone={onDone}>
+    <ApplicationForm track="freelancer" idPrefix="fl" onDone={onDone}>
       <FieldSet>
         <FieldGroup className="gap-5">
           <Field>
@@ -330,7 +386,7 @@ function FreelancerForm({ onDone }: { onDone: () => void }) {
 
 function VolunteerForm({ onDone }: { onDone: () => void }) {
   return (
-    <ApplicationForm track="volunteer" onDone={onDone}>
+    <ApplicationForm track="volunteer" idPrefix="vo" onDone={onDone}>
       <FieldSet>
         <FieldGroup className="gap-5">
           <Field>
@@ -383,7 +439,7 @@ function VolunteerForm({ onDone }: { onDone: () => void }) {
 
 function EmploymentForm({ onDone }: { onDone: () => void }) {
   return (
-    <ApplicationForm track="employment" onDone={onDone}>
+    <ApplicationForm track="employment" idPrefix="em" onDone={onDone}>
       <FieldSet>
         <FieldGroup className="gap-5">
           <Field>

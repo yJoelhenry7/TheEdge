@@ -18,6 +18,7 @@ const FIELD_LABELS: Record<string, string> = {
   years: "Years of relevant experience",
   notice: "Notice period / availability",
   cover: "Cover letter",
+  luckyNumber: "Lucky number",
 }
 
 const REQUIRED_BY_TRACK: Record<CareersTrack, string[]> = {

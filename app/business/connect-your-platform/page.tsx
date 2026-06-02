@@ -3,7 +3,7 @@ import type { Metadata } from "next"
 import { ConnectPlatformForm } from "@/components/connect-platform-form"
 
 export const metadata: Metadata = {
-  title: "Connect your platform with eConnect",
+  title: "Connect your bussiness with ePlatform",
 }
 
 export default function ConnectYourPlatformPage() {
@@ -11,7 +11,7 @@ export default function ConnectYourPlatformPage() {
     <div className="mx-auto max-w-2xl flex-1 px-4 py-16 sm:px-6">
       <p className="type-rolex-overline text-muted-foreground">Business</p>
       <h1 className="mt-4 font-sans text-3xl font-medium tracking-tight text-foreground">
-        Connect your platform with eConnect?
+        Connect your bussiness with ePlatform
       </h1>
       <p className="mt-6 text-pretty leading-relaxed text-muted-foreground">
         Choose whether you are bringing a platform to the network (seller) or
