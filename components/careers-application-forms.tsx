@@ -19,18 +19,100 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import type { CareersTrack } from "@/lib/mail"
 import { cn } from "@/lib/utils"
 
-type Track = "freelancer" | "volunteer" | "employment" | null
+type Track = CareersTrack | null
 
 const optionClass = cn(
   "flex w-full flex-col border border-black/15 bg-white px-6 py-6 text-left transition-colors",
   "hover:border-foreground hover:bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2"
 )
 
+function formDataToFields(form: HTMLFormElement) {
+  const data = new FormData(form)
+  const fields: Record<string, string> = {}
+
+  for (const [key, value] of data.entries()) {
+    if (typeof value === "string") {
+      fields[key] = value
+    }
+  }
+
+  return fields
+}
+
+async function submitCareersApplication(
+  track: CareersTrack,
+  fields: Record<string, string>
+) {
+  const response = await fetch("/api/careers", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ track, fields }),
+  })
+
+  const payload = (await response.json().catch(() => ({}))) as {
+    error?: string
+  }
+
+  if (!response.ok) {
+    throw new Error(payload.error ?? "Could not submit your application.")
+  }
+}
+
+type ApplicationFormProps = {
+  track: CareersTrack
+  onDone: () => void
+  children: React.ReactNode
+}
+
+function ApplicationForm({ track, onDone, children }: ApplicationFormProps) {
+  const [submitting, setSubmitting] = React.useState(false)
+  const [error, setError] = React.useState<string | null>(null)
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setError(null)
+    setSubmitting(true)
+
+    try {
+      const fields = formDataToFields(e.currentTarget)
+      await submitCareersApplication(track, fields)
+      onDone()
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Could not submit your application. Please try again."
+      )
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+      {children}
+      {error ? (
+        <p className="text-sm text-destructive" role="alert">
+          {error}
+        </p>
+      ) : null}
+      <Button
+        type="submit"
+        disabled={submitting}
+        className="w-full rounded-none sm:w-auto"
+      >
+        {submitting ? "Sending…" : "Submit application"}
+      </Button>
+    </form>
+  )
+}
+
 export function CareersApplicationForms() {
   const [open, setOpen] = React.useState<Track>(null)
-  const [thanks, setThanks] = React.useState<Track | null>(null)
+  const [thanks, setThanks] = React.useState<Track>(null)
 
   function close() {
     setOpen(null)
@@ -177,8 +259,8 @@ function ThanksBlurb({ onReset }: { onReset: () => void }) {
     <div className="mt-8 border border-black/10 bg-muted/30 px-6 py-8 text-center">
       <p className="font-sans text-lg font-medium text-foreground">Thank you</p>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-        Your details have been recorded for review. Our talent team may contact you
-        at the email address you provided.
+        Your application has been sent to our talent team. We may contact you at
+        the email address you provided.
       </p>
       <Button type="button" variant="outline" className="mt-8 border-foreground" onClick={onReset}>
         Close
@@ -188,13 +270,8 @@ function ThanksBlurb({ onReset }: { onReset: () => void }) {
 }
 
 function FreelancerForm({ onDone }: { onDone: () => void }) {
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    onDone()
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+    <ApplicationForm track="freelancer" onDone={onDone}>
       <FieldSet>
         <FieldGroup className="gap-5">
           <Field>
@@ -247,21 +324,13 @@ function FreelancerForm({ onDone }: { onDone: () => void }) {
           </Field>
         </FieldGroup>
       </FieldSet>
-      <Button type="submit" className="w-full rounded-none sm:w-auto">
-        Submit application
-      </Button>
-    </form>
+    </ApplicationForm>
   )
 }
 
 function VolunteerForm({ onDone }: { onDone: () => void }) {
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    onDone()
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+    <ApplicationForm track="volunteer" onDone={onDone}>
       <FieldSet>
         <FieldGroup className="gap-5">
           <Field>
@@ -308,21 +377,13 @@ function VolunteerForm({ onDone }: { onDone: () => void }) {
           </Field>
         </FieldGroup>
       </FieldSet>
-      <Button type="submit" className="w-full rounded-none sm:w-auto">
-        Submit application
-      </Button>
-    </form>
+    </ApplicationForm>
   )
 }
 
 function EmploymentForm({ onDone }: { onDone: () => void }) {
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    onDone()
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+    <ApplicationForm track="employment" onDone={onDone}>
       <FieldSet>
         <FieldGroup className="gap-5">
           <Field>
@@ -381,9 +442,6 @@ function EmploymentForm({ onDone }: { onDone: () => void }) {
           </Field>
         </FieldGroup>
       </FieldSet>
-      <Button type="submit" className="w-full rounded-none sm:w-auto">
-        Submit application
-      </Button>
-    </form>
+    </ApplicationForm>
   )
 }

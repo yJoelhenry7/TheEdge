@@ -100,16 +100,7 @@ export default function HomePage() {
         className="border-t border-black/10 bg-white px-6 py-20 sm:px-10 sm:py-28"
       >
         <div className="mx-auto flex max-w-xl flex-col items-center text-center">
-          <div
-            className="flex size-[5.25rem] items-center justify-center rounded-full border border-black sm:size-[5.5rem]"
-            aria-hidden
-          >
-            <span className="font-sans text-base font-medium tracking-[0.28em] sm:text-lg">
-              VVR
-            </span>
-          </div>
-
-          <h2 className="mt-12 font-sans text-[1.65rem] font-medium leading-snug tracking-tight text-foreground sm:text-3xl md:text-[2.125rem]">
+          <h2 className="font-sans text-[1.65rem] font-medium leading-snug tracking-tight text-foreground sm:text-3xl md:text-[2.125rem]">
             VVR brings composure to ambition — consulting that clarifies,
             and platforms that endure.
           </h2>
