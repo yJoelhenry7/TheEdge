@@ -4,7 +4,15 @@ import { LocationsMapSection } from "@/components/locations-leaflet-map"
 
 export const metadata: Metadata = {
   title: "Locations",
-  description: "VVR Industries — offices in Delhi and Ravulapalem, Andhra Pradesh.",
+  description:
+    "VVR Industries operates across India — headquartered in Delhi and with operations in Ravulapalem, Andhra Pradesh. Find our offices and presence.",
+  alternates: { canonical: "https://vvrindustries.com/locations" },
+  openGraph: {
+    title: "VVR Industries Locations",
+    description:
+      "VVR Industries offices across India — Delhi and Ravulapalem, Andhra Pradesh.",
+    url: "https://vvrindustries.com/locations",
+  },
 }
 
 export default function LocationsPage() {

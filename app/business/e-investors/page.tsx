@@ -3,6 +3,15 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "eInvestors",
+  description:
+    "VVR eInvestors provides investor intelligence, stakeholder relations, and opportunity discovery — built on transparency and data-driven insight.",
+  alternates: { canonical: "https://vvrindustries.com/business/e-investors" },
+  openGraph: {
+    title: "eInvestors — VVR Industries",
+    description:
+      "Investor intelligence, relations, and opportunity built on transparency. VVR eInvestors.",
+    url: "https://vvrindustries.com/business/e-investors",
+  },
 }
 
 const pillars = [

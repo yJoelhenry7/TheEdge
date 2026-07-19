@@ -5,6 +5,15 @@ import { CareersApplicationForms } from "@/components/careers-application-forms"
 
 export const metadata: Metadata = {
   title: "Careers",
+  description:
+    "Build with VVR. We are hiring freelancers, volunteers, and full-time professionals across consulting, platforms, and operations. Apply today.",
+  alternates: { canonical: "https://vvrindustries.com/careers" },
+  openGraph: {
+    title: "Careers at VVR Industries",
+    description:
+      "We work with people who value clarity, craft, and calm execution. Explore freelance, volunteer, and full-time roles at VVR Industries.",
+    url: "https://vvrindustries.com/careers",
+  },
 }
 
 export default function CareersPage() {

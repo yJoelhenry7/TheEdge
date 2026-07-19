@@ -2,6 +2,15 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "eConnect",
+  description:
+    "VVR eConnect is a disciplined connectivity layer that integrates people, data, and platforms. Sellers and buyers connect through a structured, scalable infrastructure.",
+  alternates: { canonical: "https://vvrindustries.com/business/e-connect" },
+  openGraph: {
+    title: "eConnect — VVR Industries",
+    description:
+      "A disciplined connectivity layer that keeps people, data, and tools aligned. Platform integration through eConnect.",
+    url: "https://vvrindustries.com/business/e-connect",
+  },
 }
 
 export default function EConnectPage() {

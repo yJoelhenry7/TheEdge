@@ -3,6 +3,15 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "eMedia Works",
+  description:
+    "VVR eMedia Works delivers full-spectrum media production and publishing — from original content to brand storytelling — for ambitious organisations.",
+  alternates: { canonical: "https://vvrindustries.com/business/e-media-works" },
+  openGraph: {
+    title: "eMedia Works — VVR Industries",
+    description:
+      "Full-spectrum media production and publishing for ambitious brands. Creative excellence from VVR eMedia Works.",
+    url: "https://vvrindustries.com/business/e-media-works",
+  },
 }
 
 const services = [

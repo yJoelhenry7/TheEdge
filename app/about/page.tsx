@@ -6,6 +6,15 @@ import { KkrvName, KkrvSpacedText } from "@/components/kkrv-name"
 
 export const metadata: Metadata = {
   title: "About",
+  description:
+    "Learn about VVR Industries Limited — our co-founders, values, and the vision behind The Edge: a suite of consulting, connectivity, and media capabilities built for the connected world.",
+  alternates: { canonical: "https://vvrindustries.com/about" },
+  openGraph: {
+    title: "About VVR Industries",
+    description:
+      "Meet the team behind VVR Industries Limited. Consulting, platforms, and media — built with precision and purpose.",
+    url: "https://vvrindustries.com/about",
+  },
 }
 
 const expertise = [

@@ -3,6 +3,15 @@ import Link from "next/link"
 
 export const metadata: Metadata = {
   title: "Blog",
+  description:
+    "Thinking, perspectives, and practical frameworks from the VVR team — on consulting, platforms, media, investor relations, and operating with precision in a connected world.",
+  alternates: { canonical: "https://vvrindustries.com/business/blog" },
+  openGraph: {
+    title: "The VVR Blog — Insights on consulting, platforms, and media",
+    description:
+      "Practical frameworks and perspectives from VVR Industries on consulting, connectivity, media, and what it takes to operate with precision.",
+    url: "https://vvrindustries.com/business/blog",
+  },
 }
 
 const placeholderPosts = [

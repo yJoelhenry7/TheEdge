@@ -2,6 +2,15 @@ import type { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: "eConsulting",
+  description:
+    "VVR eConsulting delivers strategy, governance, and programme delivery for complex change. We diagnose problems, shape roadmaps, and embed with client teams.",
+  alternates: { canonical: "https://vvrindustries.com/business/e-consulting" },
+  openGraph: {
+    title: "eConsulting — VVR Industries",
+    description:
+      "Strategy, governance, and delivery for complex change. VVR eConsulting works with leaders who need calm execution at pace.",
+    url: "https://vvrindustries.com/business/e-consulting",
+  },
 }
 
 export default function EConsultingPage() {

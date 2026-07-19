@@ -5,6 +5,15 @@ import { KkrvName } from "@/components/kkrv-name"
 
 export const metadata: Metadata = {
   title: "eMarketing Services",
+  description:
+    "VVR eMarketing Services combines creative excellence with performance discipline to grow brands that endure — from campaigns to long-term brand equity.",
+  alternates: { canonical: "https://vvrindustries.com/business/e-marketing-services" },
+  openGraph: {
+    title: "eMarketing Services — VVR Industries",
+    description:
+      "Creative excellence and performance discipline to grow brands that endure. VVR eMarketing Services.",
+    url: "https://vvrindustries.com/business/e-marketing-services",
+  },
 }
 
 const offerings = [

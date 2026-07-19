@@ -27,11 +27,12 @@ const businessLinks = [
   { label: "eMedia Works", href: "/business/e-media-works" },
   { label: "eInvestors", href: "/business/e-investors" },
   { label: "eMarketing Services", href: "/business/e-marketing-services" },
+  { label: "Edge Entertainments", href: "/business/edge-entertainments" },
+  { label: "Blog", href: "/business/blog" },
   {
     label: "Connect your bussiness with ePlatform?",
     href: "/business/connect-your-platform",
   },
-  { label: "Blog", href: "/business/blog" },
 ] as const
 
 function navLinkClass(depth: 0 | 1 | 2 = 0) {

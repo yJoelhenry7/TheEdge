@@ -3,7 +3,16 @@ import type { Metadata } from "next"
 import { ConnectPlatformForm } from "@/components/connect-platform-form"
 
 export const metadata: Metadata = {
-  title: "Connect your bussiness with ePlatform",
+  title: "Connect your platform with eConnect",
+  description:
+    "Integrate your platform with VVR eConnect. Whether you are a seller bringing a product to market or a buyer looking to connect, start here.",
+  alternates: { canonical: "https://vvrindustries.com/business/connect-your-platform" },
+  openGraph: {
+    title: "Connect your platform with eConnect — VVR Industries",
+    description:
+      "Bring your platform into the eConnect network as a seller or buyer. Structured onboarding, clear milestones.",
+    url: "https://vvrindustries.com/business/connect-your-platform",
+  },
 }
 
 export default function ConnectYourPlatformPage() {

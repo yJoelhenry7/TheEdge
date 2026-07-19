@@ -2,7 +2,16 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "The Edge solutions",
+  title: "The Edge Solutions",
+  description:
+    "The Edge is VVR's integrated suite of business capabilities — eConsulting, eConnect, eMedia Works, eInvestors, and eMarketing Services — each designed to operate independently or together.",
+  alternates: { canonical: "https://vvrindustries.com/business/the-edge-solutions" },
+  openGraph: {
+    title: "The Edge Solutions — VVR Industries",
+    description:
+      "Consulting, connectivity, media, investor relations, and marketing — The Edge solutions from VVR Industries.",
+    url: "https://vvrindustries.com/business/the-edge-solutions",
+  },
 }
 
 const offerings = [
