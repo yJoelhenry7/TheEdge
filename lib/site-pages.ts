@@ -56,6 +56,12 @@ export const sitePages: SitePage[] = [
     keywords: ["marketing", "brand", "digital", "growth", "campaigns"],
   },
   {
+    title: "Blog",
+    href: "/business/blog",
+    group: "Business",
+    keywords: ["blog", "articles", "insights", "thinking", "perspectives"],
+  },
+  {
     title: "Careers",
     href: "/careers",
     keywords: ["jobs", "hiring", "recruitment", "talent"],

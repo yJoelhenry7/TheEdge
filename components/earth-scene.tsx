@@ -172,11 +172,11 @@ export default function EarthScene() {
 
     /* ── Renderer ─────────────────────────────────────────────────── */
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: window.devicePixelRatio < 2,
       powerPreference: "high-performance",
     })
     renderer.setSize(W, H)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.setClearColor(0x000000)
     mount.appendChild(renderer.domElement)
 
@@ -294,7 +294,7 @@ export default function EarthScene() {
     })
 
     const earth = new THREE.Mesh(
-      new THREE.SphereGeometry(EARTH_R, 80, 80),
+      new THREE.SphereGeometry(EARTH_R, 64, 64),
       earthMat
     )
     // Globe tour: start from East Asia / Pacific view
@@ -420,29 +420,60 @@ export default function EarthScene() {
 
     const t0 = performance.now()
     let raf: number
+    let visible = true
 
     // Idle breathing: ±4° sine oscillation around India, 12-second period
     const BREATH_AMP    = 0.070   // radians (~4°)
     const BREATH_PERIOD = 12000   // ms for one full cycle
 
-    /* ── Animation loop ───────────────────────────────────────────── */
-    function animate() {
+    // Reusable vector — avoids a clone() allocation every frame
+    const lookTarget = new THREE.Vector3()
+
+    /* ── Pause RAF when the canvas scrolls out of view ─────────── */
+    const observer = new IntersectionObserver(
+      (entries) => {
+        visible = entries[0]?.isIntersecting ?? true
+        if (visible && !raf) scheduleFrame()
+      },
+      { threshold: 0 }
+    )
+    observer.observe(mount)
+
+    /* ── Throttle idle phase to ~30 fps to save main-thread time ── */
+    let lastIdleFrame = 0
+    const IDLE_INTERVAL = 1000 / 30
+
+    function scheduleFrame() {
       raf = requestAnimationFrame(animate)
+    }
+
+    /* ── Animation loop ───────────────────────────────────────────── */
+    function animate(now = 0) {
+      raf = 0
+
+      if (!visible) return
 
       const elapsed = performance.now() - t0
+      const rawMain  = Math.min(elapsed / ANIM_MS, 1)
+      const isIdle   = rawMain >= 1
+
+      // Throttle idle breathing to 30 fps
+      if (isIdle) {
+        if (now - lastIdleFrame < IDLE_INTERVAL) {
+          raf = requestAnimationFrame(animate)
+          return
+        }
+        lastIdleFrame = now
+      }
 
       // ── Camera zoom + globe spin (same easing) ─────────────────
-      const rawMain  = Math.min(elapsed / ANIM_MS, 1)
-      const eased    = easeOutQuart(rawMain)
-
+      const eased = easeOutQuart(rawMain)
       camera.position.z = START_Z + (END_Z - START_Z) * eased
       camera.position.y = START_Y + (END_Y - START_Y) * eased
 
-      if (rawMain < 1) {
-        // Phase 1 – spin + zoom in
+      if (!isIdle) {
         earth.rotation.y = START_ROT + DELTA_ROT * eased
       } else {
-        // Phase 2 – settled on India: gentle breathing oscillation
         const idleElapsed = elapsed - ANIM_MS
         earth.rotation.y =
           INDIA_ROT_Y +
@@ -452,22 +483,23 @@ export default function EarthScene() {
       // ── India glow phase ───────────────────────────────────────
       const glowElapsed = Math.max(0, elapsed - GLOW_DELAY_MS)
       const glowT       = Math.min(glowElapsed / GLOW_RISE_MS, 1)
-      const glowEased   = glowT * glowT  // ease-in for a gentle build
+      const glowEased   = glowT * glowT
 
-      indiaHighlightU.value    = glowEased
-      indiaGlowMat.opacity     = glowEased * 0.70
+      indiaHighlightU.value = glowEased
+      indiaGlowMat.opacity  = glowEased * 0.70
 
-      // ── Camera lookAt: subtly re-centre on India as glow rises ─
-      const lookTarget = lookAtStart.clone().lerp(lookAtIndia, glowEased)
+      // ── Camera lookAt (reuse vector) ───────────────────────────
+      lookTarget.lerpVectors(lookAtStart, lookAtIndia, glowEased)
       camera.lookAt(lookTarget)
 
       // ── Stars slow drift ───────────────────────────────────────
       stars.rotation.y += 0.000014
 
       renderer.render(scene, camera)
+      raf = requestAnimationFrame(animate)
     }
 
-    animate()
+    scheduleFrame()
 
     /* ── Resize ──────────────────────────────────────────────────── */
     function onResize() {
@@ -482,7 +514,8 @@ export default function EarthScene() {
 
     /* ── Cleanup ─────────────────────────────────────────────────── */
     return () => {
-      cancelAnimationFrame(raf)
+      if (raf) cancelAnimationFrame(raf)
+      observer.disconnect()
       window.removeEventListener("resize", onResize)
       renderer.dispose()
       if (mount.contains(renderer.domElement)) {

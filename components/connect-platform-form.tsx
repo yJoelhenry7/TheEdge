@@ -2,6 +2,7 @@
 
 import * as React from "react"
 
+import { submitEConnectEnquiryAction } from "@/app/business/connect-your-platform/actions"
 import { Button } from "@/components/ui/button"
 import {
   Field,
@@ -19,13 +20,39 @@ import { cn } from "@/lib/utils"
 
 type Party = "seller" | "buyer"
 
+function formDataToFields(form: HTMLFormElement): Record<string, string> {
+  const data = new FormData(form)
+  const fields: Record<string, string> = {}
+  for (const [key, value] of data.entries()) {
+    if (typeof value === "string") fields[key] = value
+  }
+  return fields
+}
+
 export function ConnectPlatformForm() {
   const [party, setParty] = React.useState<Party>("seller")
   const [submitted, setSubmitted] = React.useState(false)
+  const [submitting, setSubmitting] = React.useState(false)
+  const [error, setError] = React.useState<string | null>(null)
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitted(true)
+    setError(null)
+    setSubmitting(true)
+
+    try {
+      const fields = formDataToFields(e.currentTarget)
+      const result = await submitEConnectEnquiryAction(party, fields)
+      if (!result.ok) {
+        setError(result.error)
+      } else {
+        setSubmitted(true)
+      }
+    } catch {
+      setError("Something went wrong. Please try again.")
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (submitted) {
@@ -42,7 +69,10 @@ export function ConnectPlatformForm() {
           type="button"
           variant="outline"
           className="mt-8 border-foreground"
-          onClick={() => setSubmitted(false)}
+          onClick={() => {
+            setSubmitted(false)
+            setError(null)
+          }}
         >
           Submit another
         </Button>
@@ -99,9 +129,9 @@ export function ConnectPlatformForm() {
       </FieldSet>
 
       {party === "seller" ? (
-        <SellerForm onSubmit={handleSubmit} />
+        <SellerForm onSubmit={handleSubmit} submitting={submitting} error={error} />
       ) : (
-        <BuyerForm onSubmit={handleSubmit} />
+        <BuyerForm onSubmit={handleSubmit} submitting={submitting} error={error} />
       )}
     </div>
   )
@@ -109,8 +139,12 @@ export function ConnectPlatformForm() {
 
 function SellerForm({
   onSubmit,
+  submitting,
+  error,
 }: {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  submitting: boolean
+  error: string | null
 }) {
   return (
     <form onSubmit={onSubmit} className="space-y-8 border border-black/15 p-6 sm:p-8">
@@ -193,8 +227,14 @@ function SellerForm({
         </Field>
       </FieldGroup>
 
-      <Button type="submit" className="w-full sm:w-auto">
-        Submit seller enquiry
+      {error ? (
+        <p className="text-sm text-destructive" role="alert">
+          {error}
+        </p>
+      ) : null}
+
+      <Button type="submit" disabled={submitting} className="w-full sm:w-auto">
+        {submitting ? "Sending…" : "Submit seller enquiry"}
       </Button>
     </form>
   )
@@ -202,8 +242,12 @@ function SellerForm({
 
 function BuyerForm({
   onSubmit,
+  submitting,
+  error,
 }: {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  submitting: boolean
+  error: string | null
 }) {
   return (
     <form onSubmit={onSubmit} className="space-y-8 border border-black/15 p-6 sm:p-8">
@@ -301,8 +345,14 @@ function BuyerForm({
         </Field>
       </FieldGroup>
 
-      <Button type="submit" className="w-full sm:w-auto">
-        Submit buyer enquiry
+      {error ? (
+        <p className="text-sm text-destructive" role="alert">
+          {error}
+        </p>
+      ) : null}
+
+      <Button type="submit" disabled={submitting} className="w-full sm:w-auto">
+        {submitting ? "Sending…" : "Submit buyer enquiry"}
       </Button>
     </form>
   )

@@ -2,7 +2,9 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 
 import { PageLoader } from "@/components/page-loader"
+import { SiteFooter } from "@/components/site-footer"
 import { SiteHeader } from "@/components/site-header"
+import { WhatsAppFab } from "@/components/whatsapp-fab"
 
 import "./globals.css"
 
@@ -39,6 +41,8 @@ export default function RootLayout({
         <PageLoader />
         <SiteHeader />
         <main className="site-content flex flex-1 flex-col">{children}</main>
+        <SiteFooter />
+        <WhatsAppFab />
       </body>
     </html>
   )

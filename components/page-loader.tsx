@@ -123,7 +123,7 @@ export function PageLoader() {
       setPhase("waiting")
     }
 
-    document.addEventListener("click", handleClick, true)
+    document.addEventListener("click", handleClick, { capture: true, passive: true })
     return () => document.removeEventListener("click", handleClick, true)
   }, [pathname])
 
