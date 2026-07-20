@@ -58,7 +58,7 @@ export const sitePages: SitePage[] = [
   {
     title: "Edge Entertainments",
     href: "/business/edge-entertainments",
-    group: "Business",
+    group: "Edge Entertainments",
     keywords: ["entertainment", "video", "media", "creative", "productions"],
   },
   {

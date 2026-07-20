@@ -21,18 +21,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 
-const businessLinks = [
+const theEdgeLinks = [
   { label: "eConsulting", href: "/business/e-consulting" },
   { label: "eConnect", href: "/business/e-connect" },
   { label: "eMedia Works", href: "/business/e-media-works" },
   { label: "eInvestors", href: "/business/e-investors" },
   { label: "eMarketing Services", href: "/business/e-marketing-services" },
-  { label: "Edge Entertainments", href: "/business/edge-entertainments" },
   { label: "Blog", href: "/business/blog" },
   {
     label: "Connect your bussiness with ePlatform?",
     href: "/business/connect-your-platform",
   },
+] as const
+
+const entertainmentsLinks = [
+  { label: "Overview", href: "/business/edge-entertainments" },
 ] as const
 
 function navLinkClass(depth: 0 | 1 | 2 = 0) {
@@ -110,6 +113,7 @@ export function SiteHeader() {
                     <ChevronDown className="size-4 shrink-0 transition-transform" />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="flex flex-col gap-1">
+                    {/* The Edge solutions */}
                     <Collapsible className="space-y-1" defaultOpen>
                       <CollapsibleTrigger
                         className={cn(
@@ -129,7 +133,33 @@ export function SiteHeader() {
                         >
                           Overview
                         </Link>
-                        {businessLinks.map((item) => (
+                        {theEdgeLinks.map((item) => (
+                          <Link
+                            key={item.href}
+                            href={item.href}
+                            className={navLinkClass(2)}
+                            onClick={() => setMenuOpen(false)}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+
+                    {/* Edge Entertainments */}
+                    <Collapsible className="space-y-1">
+                      <CollapsibleTrigger
+                        className={cn(
+                          "flex w-full items-center justify-between rounded-md px-2 py-2 text-left text-sm font-medium hover:bg-muted",
+                          "pl-4",
+                          "[&[data-panel-open]_svg]:rotate-180"
+                        )}
+                      >
+                        Edge Entertainments
+                        <ChevronDown className="size-4 shrink-0 transition-transform" />
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="flex flex-col gap-1">
+                        {entertainmentsLinks.map((item) => (
                           <Link
                             key={item.href}
                             href={item.href}

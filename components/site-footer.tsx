@@ -1,14 +1,17 @@
 import Link from "next/link"
 
-const businessLinks = [
+const theEdgeLinks = [
   { label: "The Edge Solutions", href: "/business/the-edge-solutions" },
   { label: "eConsulting", href: "/business/e-consulting" },
   { label: "eConnect", href: "/business/e-connect" },
   { label: "eMedia Works", href: "/business/e-media-works" },
   { label: "eInvestors", href: "/business/e-investors" },
   { label: "eMarketing Services", href: "/business/e-marketing-services" },
-  { label: "Edge Entertainments", href: "/business/edge-entertainments" },
   { label: "Blog", href: "/business/blog" },
+]
+
+const entertainmentsLinks = [
+  { label: "Edge Entertainments", href: "/business/edge-entertainments" },
 ]
 
 const companyLinks = [
@@ -115,8 +118,30 @@ export function SiteFooter() {
             <p className="mb-5 font-sans text-[0.625rem] font-normal uppercase tracking-[0.28em] text-muted-foreground">
               Business
             </p>
+
+            {/* The Edge solutions group */}
+            <p className="mb-3 font-sans text-[0.6rem] font-normal uppercase tracking-[0.22em] text-muted-foreground/60">
+              The Edge
+            </p>
+            <ul className="mb-7 flex flex-col gap-3">
+              {theEdgeLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="font-sans text-sm text-foreground transition-opacity hover:opacity-60"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            {/* Edge Entertainments group */}
+            <p className="mb-3 font-sans text-[0.6rem] font-normal uppercase tracking-[0.22em] text-muted-foreground/60">
+              Edge Entertainments
+            </p>
             <ul className="flex flex-col gap-3">
-              {businessLinks.map((link) => (
+              {entertainmentsLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
