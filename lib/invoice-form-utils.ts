@@ -4,73 +4,74 @@ function getAll(formData: FormData, key: string): string[] {
   return formData.getAll(key).map((value) => String(value))
 }
 
-export function parseInvoiceFormData(formData: FormData): { ok: true; payload: InvoicePdfPayload } | { ok: false; error: string } {
-  const customerName = String(formData.get("customer_name") ?? "").trim()
+export function parseInvoiceFormData(
+  formData: FormData
+): { ok: true; payload: InvoicePdfPayload } | { ok: false; error: string } {
+  const billedName = String(formData.get("billed_name") ?? "").trim()
   const invoiceDate = String(formData.get("invoice_date") ?? "").trim()
 
-  if (!customerName) {
-    return { ok: false, error: "Customer name is required." }
+  if (!billedName) {
+    return { ok: false, error: "Billed-to name is required." }
   }
   if (!invoiceDate) {
     return { ok: false, error: "Invoice date is required." }
   }
 
-  const treatmentNames = getAll(formData, "item_treatment_name")
-  const treatmentDates = getAll(formData, "item_date")
-  const costs = getAll(formData, "item_cost")
-  const offerAmounts = getAll(formData, "item_offer_amount")
+  const descriptions = getAll(formData, "item_description")
+  const amounts = getAll(formData, "item_amount")
 
-  if (treatmentNames.length === 0) {
-    return { ok: false, error: "Add at least one line item." }
+  if (descriptions.length === 0) {
+    return { ok: false, error: "Add at least one service line." }
   }
 
-  const items: InvoiceItemInput[] = treatmentNames.map((name, index) => ({
-    treatment_name: name.trim(),
-    treatment_date: treatmentDates[index] ?? "",
-    cost: costs[index] ?? "",
-    offer_amount: offerAmounts[index] ?? "",
+  const items: InvoiceItemInput[] = descriptions.map((description, index) => ({
+    description: description.trim(),
+    amount: amounts[index] ?? "",
   }))
 
-  const invalidItem = items.find((item) => !item.treatment_name || item.cost.trim() === "" || Number.isNaN(Number(item.cost)))
+  const invalidItem = items.find(
+    (item) => !item.description || item.amount.trim() === "" || Number.isNaN(Number(item.amount))
+  )
   if (invalidItem) {
-    return { ok: false, error: "Each line item needs a description and valid amount." }
+    return { ok: false, error: "Each line needs a description and valid amount." }
   }
 
-  const paymentMethod = String(formData.get("payment_method") ?? "").trim()
-  const upiTransactionId = String(formData.get("upi_transaction_id") ?? "").trim()
-  if (paymentMethod === "upi" && !upiTransactionId) {
-    return { ok: false, error: "UPI Transaction ID is required when payment method is UPI." }
+  const eServiceCharges = String(formData.get("e_service_charges") ?? "0").trim() || "0"
+  if (Number.isNaN(Number(eServiceCharges))) {
+    return { ok: false, error: "e.Service charges must be a valid number." }
   }
 
-  const status = String(formData.get("status") ?? "unpaid")
-  if (status !== "paid" && status !== "unpaid" && status !== "partial") {
-    return { ok: false, error: "Invalid invoice status." }
+  const igstRate = String(formData.get("igst_rate") ?? "18").trim() || "18"
+  if (Number.isNaN(Number(igstRate))) {
+    return { ok: false, error: "IGST rate must be a valid number." }
   }
 
   return {
     ok: true,
     payload: {
-      invoice_number: String(formData.get("invoice_number") ?? "").trim(),
       invoice_date: invoiceDate,
-      status,
-      payment_method: paymentMethod,
-      upi_transaction_id: upiTransactionId,
-      include_treatment_date: formData.get("include_treatment_date") === "on",
-      notes: String(formData.get("notes") ?? "").trim(),
-      customer: {
-        full_name: customerName,
-        company: String(formData.get("customer_company") ?? "").trim(),
-        customer_id: String(formData.get("customer_id") ?? "").trim(),
-        email: String(formData.get("customer_email") ?? "").trim(),
-        phone: String(formData.get("customer_phone") ?? "").trim(),
-        address: String(formData.get("customer_address") ?? "").trim(),
+      order_id: String(formData.get("order_id") ?? "").trim(),
+      e_id_number: String(formData.get("e_id_number") ?? "").trim() || "81886889",
+      payment_method: String(formData.get("payment_method") ?? "").trim() || "CASH",
+      service_label: String(formData.get("service_label") ?? "").trim() || "THE STORE",
+      service_from: String(formData.get("service_from") ?? "").trim() || "FROM eSERVICES",
+      e_service_charges: eServiceCharges,
+      igst_rate: igstRate,
+      charge_igst: formData.get("charge_igst") === "on",
+      billed_to: {
+        gstin: String(formData.get("gstin") ?? "").trim(),
+        name: billedName,
+        address: String(formData.get("billed_address") ?? "").trim(),
+        country: String(formData.get("billed_country") ?? "").trim() || "IND.",
       },
       items,
     },
   }
 }
 
-export function parseInvoiceJson(body: unknown): { ok: true; payload: InvoicePdfPayload } | { ok: false; error: string } {
+export function parseInvoiceJson(
+  body: unknown
+): { ok: true; payload: InvoicePdfPayload } | { ok: false; error: string } {
   if (!body || typeof body !== "object") {
     return { ok: false, error: "Invalid request body." }
   }
@@ -83,27 +84,23 @@ export function parseInvoiceJson(body: unknown): { ok: true; payload: InvoicePdf
       for (const item of value) {
         if (!item || typeof item !== "object") continue
         const row = item as Record<string, unknown>
-        data.append("item_treatment_name", String(row.treatment_name ?? ""))
-        data.append("item_date", String(row.treatment_date ?? ""))
-        data.append("item_cost", String(row.cost ?? ""))
-        data.append("item_offer_amount", String(row.offer_amount ?? ""))
+        data.append("item_description", String(row.description ?? ""))
+        data.append("item_amount", String(row.amount ?? ""))
       }
       continue
     }
 
-    if (key === "customer" && value && typeof value === "object") {
-      const customer = value as Record<string, unknown>
-      data.set("customer_name", String(customer.full_name ?? ""))
-      data.set("customer_company", String(customer.company ?? ""))
-      data.set("customer_id", String(customer.customer_id ?? ""))
-      data.set("customer_email", String(customer.email ?? ""))
-      data.set("customer_phone", String(customer.phone ?? ""))
-      data.set("customer_address", String(customer.address ?? ""))
+    if (key === "billed_to" && value && typeof value === "object") {
+      const billed = value as Record<string, unknown>
+      data.set("gstin", String(billed.gstin ?? ""))
+      data.set("billed_name", String(billed.name ?? ""))
+      data.set("billed_address", String(billed.address ?? ""))
+      data.set("billed_country", String(billed.country ?? ""))
       continue
     }
 
-    if (key === "include_treatment_date") {
-      data.set("include_treatment_date", value ? "on" : "off")
+    if (key === "charge_igst") {
+      data.set("charge_igst", value ? "on" : "off")
       continue
     }
 

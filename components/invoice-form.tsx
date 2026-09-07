@@ -37,7 +37,8 @@ export function InvoiceForm() {
     try {
       const payload = formDataToPayload(event.currentTarget)
       if (!payload) {
-        setError("Please fill all required fields with valid values.")
+        const parsed = parseInvoiceFormData(new FormData(event.currentTarget))
+        setError(parsed.ok ? "Please fill all required fields with valid values." : parsed.error)
         return
       }
 
@@ -63,7 +64,7 @@ export function InvoiceForm() {
       anchor.href = url
       const disposition = response.headers.get("Content-Disposition") ?? ""
       const nameMatch = disposition.match(/filename\*?=(?:UTF-8'')?"?([^";]+)"?/i)
-      anchor.download = nameMatch?.[1] ?? `invoice-${payload.invoice_date}.pdf`
+      anchor.download = nameMatch?.[1] ?? `e.Bill.pdf`
       document.body.appendChild(anchor)
       anchor.click()
       anchor.remove()
@@ -87,58 +88,8 @@ export function InvoiceForm() {
 
       <FieldGroup>
         <FieldSet>
-          <FieldLegend>Customer details</FieldLegend>
+          <FieldLegend>Invoice</FieldLegend>
           <FieldGroup className="grid gap-5 sm:grid-cols-2">
-            <Field>
-              <FieldLabel htmlFor="customer_name">
-                Customer name <span className="text-destructive">*</span>
-              </FieldLabel>
-              <FieldContent>
-                <Input id="customer_name" name="customer_name" required placeholder="Full name or contact" />
-              </FieldContent>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="customer_company">Company</FieldLabel>
-              <FieldContent>
-                <Input id="customer_company" name="customer_company" placeholder="Company name (optional)" />
-              </FieldContent>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="customer_id">Customer ID</FieldLabel>
-              <FieldContent>
-                <Input id="customer_id" name="customer_id" placeholder="Optional reference ID" />
-              </FieldContent>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="customer_email">Email</FieldLabel>
-              <FieldContent>
-                <Input id="customer_email" name="customer_email" type="email" placeholder="customer@example.com" />
-              </FieldContent>
-            </Field>
-            <Field>
-              <FieldLabel htmlFor="customer_phone">Phone</FieldLabel>
-              <FieldContent>
-                <Input id="customer_phone" name="customer_phone" placeholder="+91 9876543210" />
-              </FieldContent>
-            </Field>
-            <Field className="sm:col-span-2">
-              <FieldLabel htmlFor="customer_address">Address</FieldLabel>
-              <FieldContent>
-                <Textarea id="customer_address" name="customer_address" placeholder="Billing address" rows={2} />
-              </FieldContent>
-            </Field>
-          </FieldGroup>
-        </FieldSet>
-
-        <FieldSet>
-          <FieldLegend>Invoice details</FieldLegend>
-          <FieldGroup className="grid gap-5 sm:grid-cols-2">
-            <Field>
-              <FieldLabel htmlFor="invoice_number">Invoice number</FieldLabel>
-              <FieldContent>
-                <Input id="invoice_number" name="invoice_number" placeholder="Auto-generated if left blank" />
-              </FieldContent>
-            </Field>
             <Field>
               <FieldLabel htmlFor="invoice_date">
                 Invoice date <span className="text-destructive">*</span>
@@ -148,18 +99,15 @@ export function InvoiceForm() {
               </FieldContent>
             </Field>
             <Field>
-              <FieldLabel htmlFor="status">Status</FieldLabel>
+              <FieldLabel htmlFor="order_id">Order ID</FieldLabel>
               <FieldContent>
-                <select
-                  id="status"
-                  name="status"
-                  defaultValue="unpaid"
-                  className="flex h-8 w-full rounded-lg border border-input bg-background px-2.5 text-sm"
-                >
-                  <option value="unpaid">Unpaid</option>
-                  <option value="partial">Partial</option>
-                  <option value="paid">Paid</option>
-                </select>
+                <Input id="order_id" name="order_id" placeholder="Optional" />
+              </FieldContent>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="e_id_number">E ID number</FieldLabel>
+              <FieldContent>
+                <Input id="e_id_number" name="e_id_number" defaultValue="81886889" />
               </FieldContent>
             </Field>
             <Field>
@@ -168,36 +116,73 @@ export function InvoiceForm() {
                 <select
                   id="payment_method"
                   name="payment_method"
-                  defaultValue=""
+                  defaultValue="CASH"
                   className="flex h-8 w-full rounded-lg border border-input bg-background px-2.5 text-sm"
                 >
-                  <option value="">Select payment method</option>
-                  <option value="upi">UPI</option>
-                  <option value="cash">Cash</option>
-                  <option value="bank_transfer">Bank Transfer</option>
+                  <option value="CASH">CASH</option>
+                  <option value="UPI">UPI</option>
+                  <option value="BANK TRANSFER">BANK TRANSFER</option>
                 </select>
               </FieldContent>
             </Field>
-            <Field className="sm:col-span-2">
-              <FieldLabel htmlFor="upi_transaction_id">UPI transaction ID</FieldLabel>
+          </FieldGroup>
+        </FieldSet>
+
+        <FieldSet>
+          <FieldLegend>Billed to</FieldLegend>
+          <FieldGroup className="grid gap-5 sm:grid-cols-2">
+            <Field>
+              <FieldLabel htmlFor="billed_name">
+                Name / company <span className="text-destructive">*</span>
+              </FieldLabel>
               <FieldContent>
                 <Input
-                  id="upi_transaction_id"
-                  name="upi_transaction_id"
-                  placeholder="Required when payment method is UPI"
+                  id="billed_name"
+                  name="billed_name"
+                  required
+                  placeholder="ISHI STEEL RESOURCES LLP"
                 />
               </FieldContent>
             </Field>
-            <Field orientation="horizontal" className="sm:col-span-2">
-              <input
-                type="checkbox"
-                name="include_treatment_date"
-                id="include_treatment_date"
-                defaultChecked
-                className="size-4 rounded border-input"
-              />
+            <Field>
+              <FieldLabel htmlFor="gstin">GSTIN</FieldLabel>
               <FieldContent>
-                <FieldLabel htmlFor="include_treatment_date">Include date column in invoice PDF</FieldLabel>
+                <Input id="gstin" name="gstin" placeholder="37AAJFI1477L1ZW" />
+              </FieldContent>
+            </Field>
+            <Field className="sm:col-span-2">
+              <FieldLabel htmlFor="billed_address">Address</FieldLabel>
+              <FieldContent>
+                <Textarea
+                  id="billed_address"
+                  name="billed_address"
+                  placeholder="KOTHAPETA, AP- 533223"
+                  rows={2}
+                />
+              </FieldContent>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="billed_country">Country</FieldLabel>
+              <FieldContent>
+                <Input id="billed_country" name="billed_country" defaultValue="IND." />
+              </FieldContent>
+            </Field>
+          </FieldGroup>
+        </FieldSet>
+
+        <FieldSet>
+          <FieldLegend>Service source</FieldLegend>
+          <FieldGroup className="grid gap-5 sm:grid-cols-2">
+            <Field>
+              <FieldLabel htmlFor="service_label">Service label</FieldLabel>
+              <FieldContent>
+                <Input id="service_label" name="service_label" defaultValue="THE STORE" />
+              </FieldContent>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="service_from">From line</FieldLabel>
+              <FieldContent>
+                <Input id="service_from" name="service_from" defaultValue="FROM eSERVICES" />
               </FieldContent>
             </Field>
           </FieldGroup>
@@ -205,13 +190,45 @@ export function InvoiceForm() {
 
         <InvoiceItemsFields />
 
-        <Field>
-          <FieldLabel htmlFor="notes">Notes</FieldLabel>
-          <FieldContent>
-            <Textarea id="notes" name="notes" placeholder="Internal notes (not shown on PDF)" rows={3} />
-            <FieldDescription>Notes are kept for your reference and are not printed on the PDF.</FieldDescription>
-          </FieldContent>
-        </Field>
+        <FieldSet>
+          <FieldLegend>Charges & tax</FieldLegend>
+          <FieldGroup className="grid gap-5 sm:grid-cols-2">
+            <Field>
+              <FieldLabel htmlFor="e_service_charges">e.Service charges</FieldLabel>
+              <FieldContent>
+                <Input
+                  id="e_service_charges"
+                  name="e_service_charges"
+                  type="number"
+                  min="0"
+                  step="1"
+                  defaultValue="0"
+                />
+              </FieldContent>
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="igst_rate">IGST rate (%)</FieldLabel>
+              <FieldContent>
+                <Input id="igst_rate" name="igst_rate" type="number" min="0" step="0.01" defaultValue="18" />
+              </FieldContent>
+            </Field>
+            <Field orientation="horizontal" className="sm:col-span-2">
+              <input
+                type="checkbox"
+                name="charge_igst"
+                id="charge_igst"
+                className="size-4 rounded border-input"
+              />
+              <FieldContent>
+                <FieldLabel htmlFor="charge_igst">Charge IGST on this invoice</FieldLabel>
+                <FieldDescription>
+                  When unchecked, IGST shows as 0 (as in the sample). When checked, IGST is calculated on
+                  subtotal + e.Service charges.
+                </FieldDescription>
+              </FieldContent>
+            </Field>
+          </FieldGroup>
+        </FieldSet>
       </FieldGroup>
 
       <Button type="submit" disabled={generating} className="mt-8 gap-2">
@@ -223,7 +240,7 @@ export function InvoiceForm() {
         ) : (
           <>
             <Download className="size-4" aria-hidden />
-            Generate invoice PDF
+            Generate tax invoice PDF
           </>
         )}
       </Button>

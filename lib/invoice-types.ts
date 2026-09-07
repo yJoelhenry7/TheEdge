@@ -1,25 +1,23 @@
 export type InvoiceItemInput = {
-  treatment_name: string
-  treatment_date: string
-  cost: string
-  offer_amount: string
+  description: string
+  amount: string
 }
 
 export type InvoicePdfPayload = {
-  invoice_number: string
   invoice_date: string
-  status: "paid" | "unpaid" | "partial"
+  order_id: string
+  e_id_number: string
   payment_method: string
-  upi_transaction_id: string
-  include_treatment_date: boolean
-  notes: string
-  customer: {
-    full_name: string
-    company: string
-    customer_id: string
-    email: string
-    phone: string
+  service_label: string
+  service_from: string
+  e_service_charges: string
+  igst_rate: string
+  charge_igst: boolean
+  billed_to: {
+    gstin: string
+    name: string
     address: string
+    country: string
   }
   items: InvoiceItemInput[]
 }

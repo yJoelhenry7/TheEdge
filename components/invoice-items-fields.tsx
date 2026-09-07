@@ -8,75 +8,47 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
 type ItemState = {
-  treatment_name: string
-  treatment_date: string
-  cost: string
-  discount: string
-}
-
-function toState(item: InvoiceItemInput): ItemState {
-  const cost = Number(item.cost)
-  const offer = item.offer_amount.trim() === "" ? null : Number(item.offer_amount)
-  let discount = ""
-  if (offer !== null && !Number.isNaN(offer) && !Number.isNaN(cost) && cost > 0 && offer <= cost) {
-    const percent = ((cost - offer) / cost) * 100
-    if (percent > 0) discount = String(Number(percent.toFixed(2)))
-  }
-  return { treatment_name: item.treatment_name, treatment_date: item.treatment_date, cost: item.cost, discount }
-}
-
-function discountPercent(item: ItemState): number {
-  const percent = item.discount.trim() === "" ? 0 : Number(item.discount)
-  if (Number.isNaN(percent) || percent <= 0) return 0
-  return Math.min(percent, 100)
+  description: string
+  amount: string
 }
 
 function normalizeInitialItems(items: InvoiceItemInput[]): ItemState[] {
-  const mapped = items.map(toState)
+  const mapped = items.map((item) => ({
+    description: item.description,
+    amount: item.amount,
+  }))
   if (mapped.length > 0) return mapped
-  return [{ treatment_name: "", treatment_date: "", cost: "", discount: "" }]
-}
-
-function netAmount(item: ItemState): number {
-  const cost = Number(item.cost)
-  if (Number.isNaN(cost) || cost < 0) return 0
-  const percent = discountPercent(item)
-  if (percent <= 0) return cost
-  return Math.max(0, cost - (cost * percent) / 100)
-}
-
-function offerValue(item: ItemState): string {
-  const cost = Number(item.cost)
-  if (Number.isNaN(cost) || cost < 0) return ""
-  const percent = discountPercent(item)
-  if (percent <= 0) return ""
-  return String(Number(Math.max(0, cost - (cost * percent) / 100).toFixed(2)))
+  return [{ description: "", amount: "" }]
 }
 
 function formatCurrency(value: number) {
-  return `INR ${new Intl.NumberFormat("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value)}`
+  return new Intl.NumberFormat("en-IN", {
+    maximumFractionDigits: 0,
+  }).format(value)
 }
 
 export function InvoiceItemsFields({
   initialItems = [],
-  compact = false,
 }: {
   initialItems?: InvoiceItemInput[]
-  compact?: boolean
 }) {
   const [items, setItems] = useState<ItemState[]>(normalizeInitialItems(initialItems))
-  const rowClass = compact
-    ? "grid gap-2 sm:grid-cols-2"
-    : "grid gap-2 md:grid-cols-[1fr_140px_120px_120px_120px_auto]"
 
-  const total = useMemo(() => items.reduce((sum, item) => sum + netAmount(item), 0), [items])
+  const total = useMemo(
+    () =>
+      items.reduce((sum, item) => {
+        const amount = Number(item.amount)
+        return sum + (Number.isNaN(amount) || amount < 0 ? 0 : amount)
+      }, 0),
+    [items]
+  )
 
   function updateItem(index: number, field: keyof ItemState, value: string) {
     setItems((prev) => prev.map((item, itemIndex) => (itemIndex === index ? { ...item, [field]: value } : item)))
   }
 
   function addItem() {
-    setItems((prev) => [...prev, { treatment_name: "", treatment_date: "", cost: "", discount: "" }])
+    setItems((prev) => [...prev, { description: "", amount: "" }])
   }
 
   function removeItem(index: number) {
@@ -87,44 +59,32 @@ export function InvoiceItemsFields({
   }
 
   return (
-    <div className="space-y-3 md:col-span-2">
+    <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-foreground">Line items</p>
+        <p className="text-sm font-medium text-foreground">Services</p>
         <button
           type="button"
           onClick={addItem}
           className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-black/15 px-3 py-1 text-xs font-medium text-foreground"
         >
           <Plus className="size-3.5 shrink-0" aria-hidden />
-          Add item
+          Add service
         </button>
       </div>
 
       <div className="space-y-2">
         {items.map((item, index) => (
-          <div
-            key={`item-row-${index}`}
-            className={`${rowClass} ${compact ? "rounded-md border border-black/10 bg-white p-2" : ""}`}
-          >
+          <div key={`item-row-${index}`} className="grid gap-2 md:grid-cols-[1fr_140px_auto]">
             <label className="space-y-1">
               <Label className="text-xs font-medium text-muted-foreground">
                 Description <span className="text-destructive">*</span>
               </Label>
               <Input
-                name="item_treatment_name"
-                value={item.treatment_name}
-                onChange={(event) => updateItem(index, "treatment_name", event.target.value)}
-                placeholder="Item or service"
+                name="item_description"
+                value={item.description}
+                onChange={(event) => updateItem(index, "description", event.target.value)}
+                placeholder="e.g. DRONE AD SHOOT AND PHOTOGRAPHY"
                 required
-              />
-            </label>
-            <label className="space-y-1">
-              <Label className="text-xs font-medium text-muted-foreground">Date</Label>
-              <Input
-                name="item_date"
-                type="date"
-                value={item.treatment_date}
-                onChange={(event) => updateItem(index, "treatment_date", event.target.value)}
               />
             </label>
             <label className="space-y-1">
@@ -132,40 +92,16 @@ export function InvoiceItemsFields({
                 Amount <span className="text-destructive">*</span>
               </Label>
               <Input
-                name="item_cost"
+                name="item_amount"
                 type="number"
                 min="0"
-                step="0.01"
-                value={item.cost}
-                onChange={(event) => updateItem(index, "cost", event.target.value)}
-                placeholder="0.00"
+                step="1"
+                value={item.amount}
+                onChange={(event) => updateItem(index, "amount", event.target.value)}
+                placeholder="6000"
                 required
               />
             </label>
-            <label className="space-y-1">
-              <Label className="text-xs font-medium text-muted-foreground">Discount (%)</Label>
-              <Input
-                type="number"
-                min="0"
-                max="100"
-                step="0.01"
-                value={item.discount}
-                onChange={(event) => updateItem(index, "discount", event.target.value)}
-                placeholder="0"
-              />
-            </label>
-            <label className="space-y-1">
-              <Label className="text-xs font-medium text-muted-foreground">Payable</Label>
-              <Input
-                value={new Intl.NumberFormat("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(
-                  netAmount(item)
-                )}
-                readOnly
-                tabIndex={-1}
-                className="bg-muted text-muted-foreground"
-              />
-            </label>
-            <input type="hidden" name="item_offer_amount" value={offerValue(item)} readOnly />
             <button
               type="button"
               onClick={() => removeItem(index)}
@@ -180,11 +116,8 @@ export function InvoiceItemsFields({
       </div>
 
       <div className="rounded-md border border-black/10 bg-muted/40 px-3 py-2 text-sm">
-        <span className="font-medium">Total payable: </span>
+        <span className="font-medium">Subtotal: </span>
         {formatCurrency(total)}
-        <span className="mt-1 block text-xs text-muted-foreground">
-          Payable = Amount − (Amount × Discount%). Zero rupees is allowed.
-        </span>
       </div>
     </div>
   )
