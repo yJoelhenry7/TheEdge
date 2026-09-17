@@ -72,4 +72,9 @@ export const sitePages: SitePage[] = [
     href: "/careers",
     keywords: ["jobs", "hiring", "recruitment", "talent"],
   },
+  {
+    title: "Links",
+    href: "/links",
+    keywords: ["linktree", "social", "instagram", "youtube", "whatsapp", "contact", "hub"],
+  },
 ]

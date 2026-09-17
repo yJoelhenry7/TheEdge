@@ -183,6 +183,14 @@ export function SiteHeader() {
                 >
                   Careers
                 </Link>
+
+                <Link
+                  href="/links"
+                  className={navLinkClass()}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Links
+                </Link>
               </nav>
             </SheetContent>
           </Sheet>
