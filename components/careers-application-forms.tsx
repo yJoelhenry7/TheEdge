@@ -166,9 +166,20 @@ function ApplicationForm({ track, idPrefix, onDone, children }: ApplicationFormP
   )
 }
 
-export function CareersApplicationForms() {
-  const [open, setOpen] = React.useState<Track>(null)
+export function CareersApplicationForms({
+  initialTrack = null,
+}: {
+  initialTrack?: Track
+}) {
+  const [open, setOpen] = React.useState<Track>(initialTrack)
   const [thanks, setThanks] = React.useState<Track>(null)
+
+  React.useEffect(() => {
+    if (initialTrack) {
+      setThanks(null)
+      setOpen(initialTrack)
+    }
+  }, [initialTrack])
 
   function close() {
     setOpen(null)

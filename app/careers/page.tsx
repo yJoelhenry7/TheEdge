@@ -16,7 +16,24 @@ export const metadata: Metadata = {
   },
 }
 
-export default function CareersPage() {
+type CareersTrack = "freelancer" | "volunteer" | "employment"
+
+function parseTrack(value: string | string[] | undefined): CareersTrack | null {
+  const raw = Array.isArray(value) ? value[0] : value
+  if (raw === "freelancer" || raw === "volunteer" || raw === "employment") {
+    return raw
+  }
+  return null
+}
+
+export default async function CareersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ track?: string | string[] }>
+}) {
+  const params = await searchParams
+  const initialTrack = parseTrack(params.track)
+
   return (
     <div className="mx-auto max-w-4xl flex-1 px-4 py-16 sm:px-6">
       <p className="type-rolex-overline text-muted-foreground">Careers</p>
@@ -28,7 +45,7 @@ export default function CareersPage() {
         how you would like to engage — each path opens its own application form.
       </p>
 
-      <CareersApplicationForms />
+      <CareersApplicationForms initialTrack={initialTrack} />
 
       <p className="mt-16 border-t border-black/10 pt-10 text-center text-sm text-muted-foreground">
         Prefer email?{" "}

@@ -15,7 +15,22 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ConnectYourPlatformPage() {
+type Party = "seller" | "buyer"
+
+function parseParty(value: string | string[] | undefined): Party | undefined {
+  const raw = Array.isArray(value) ? value[0] : value
+  if (raw === "buyer" || raw === "seller") return raw
+  return undefined
+}
+
+export default async function ConnectYourPlatformPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ party?: string | string[] }>
+}) {
+  const params = await searchParams
+  const initialParty = parseParty(params.party)
+
   return (
     <div className="mx-auto max-w-2xl flex-1 px-4 py-16 sm:px-6">
       <p className="type-rolex-overline text-muted-foreground">Business</p>
@@ -28,7 +43,7 @@ export default function ConnectYourPlatformPage() {
       </p>
 
       <div className="mt-12">
-        <ConnectPlatformForm />
+        <ConnectPlatformForm initialParty={initialParty ?? "seller"} />
       </div>
 
       <ol className="mt-16 list-inside list-decimal space-y-3 border-t border-black/10 pt-12 text-sm text-muted-foreground">

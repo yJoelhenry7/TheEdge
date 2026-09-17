@@ -15,23 +15,37 @@ L.Icon.Default.mergeOptions({
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 })
 
-/* Custom red marker icon */
-function redIcon() {
+/* VVR lion logo pin — white circle + tip, logo centered inside */
+function logoPinIcon() {
   return L.divIcon({
-    className: "",
+    className: "leaflet-vvr-logo-pin",
     html: `
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="24" height="36">
-        <path
-          d="M12 0C5.372 0 0 5.372 0 12c0 8.4 12 24 12 24s12-15.6 12-24C24 5.372 18.628 0 12 0z"
-          fill="#dc2626"
-          stroke="#fff"
-          stroke-width="1.5"
-        />
-        <circle cx="12" cy="12" r="4.5" fill="#fff" />
-      </svg>`,
-    iconSize: [24, 36],
-    iconAnchor: [12, 36],
-    popupAnchor: [0, -38],
+      <div class="leaflet-vvr-logo-pin__wrap">
+        <svg
+          class="leaflet-vvr-logo-pin__shape"
+          width="52"
+          height="64"
+          viewBox="0 0 52 64"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          aria-hidden="true"
+        >
+          <circle cx="26" cy="24" r="22" fill="#ffffff"/>
+          <path d="M26 60 L16 42 L36 42 Z" fill="#ffffff"/>
+          <image
+            href="/logo.png"
+            xlink:href="/logo.png"
+            x="9"
+            y="7"
+            width="34"
+            height="34"
+            preserveAspectRatio="xMidYMid meet"
+          />
+        </svg>
+      </div>`,
+    iconSize: [52, 64],
+    iconAnchor: [26, 60],
+    popupAnchor: [0, -58],
   })
 }
 
@@ -56,7 +70,7 @@ export default function LocationsLeafletInner({
   selectedId: LocationId | null
   onSelect: (id: LocationId) => void
 }) {
-  const icon = React.useMemo(() => redIcon(), [])
+  const icon = React.useMemo(() => logoPinIcon(), [])
 
   /* Centre on India */
   const centre: [number, number] = [20.5937, 78.9629]

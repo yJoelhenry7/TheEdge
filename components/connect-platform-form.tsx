@@ -29,11 +29,19 @@ function formDataToFields(form: HTMLFormElement): Record<string, string> {
   return fields
 }
 
-export function ConnectPlatformForm() {
-  const [party, setParty] = React.useState<Party>("seller")
+export function ConnectPlatformForm({
+  initialParty = "seller",
+}: {
+  initialParty?: Party
+}) {
+  const [party, setParty] = React.useState<Party>(initialParty)
   const [submitted, setSubmitted] = React.useState(false)
   const [submitting, setSubmitting] = React.useState(false)
   const [error, setError] = React.useState<string | null>(null)
+
+  React.useEffect(() => {
+    setParty(initialParty)
+  }, [initialParty])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
