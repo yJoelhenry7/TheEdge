@@ -12,7 +12,7 @@ import {
   Users,
 } from "lucide-react"
 
-import { LocationsMapSection } from "@/components/locations-leaflet-map"
+import { LinksSpaceBg } from "@/components/links-space-bg"
 import { cn } from "@/lib/utils"
 
 const WHATSAPP_HREF = "https://wa.me/message/GNHWVOWXXKHOE1"
@@ -105,7 +105,7 @@ const socialLinks = [
 
 function SectionHeading({ children }: { children: ReactNode }) {
   return (
-    <p className="type-rolex-overline text-muted-foreground">{children}</p>
+    <p className="type-rolex-overline text-white/55">{children}</p>
   )
 }
 
@@ -148,20 +148,19 @@ function IconTile({
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={cn(
-        "links-tile group flex min-w-0 flex-col items-center gap-2 border border-black/10 bg-white px-2 py-4 text-center sm:gap-2.5 sm:px-3 sm:py-5",
-        "hover:border-foreground hover:bg-muted/30",
+        "links-tile group flex min-w-0 flex-col items-center gap-2 border px-2 py-4 text-center sm:gap-2.5 sm:px-3 sm:py-5",
         className
       )}
     >
-      <span className="flex size-9 shrink-0 items-center justify-center border border-black/15 transition-transform duration-300 group-hover:scale-110 group-hover:border-foreground sm:size-11">
-        <Icon className="size-4 text-foreground sm:size-5" strokeWidth={1.25} />
+      <span className="links-icon-badge flex size-10 shrink-0 items-center justify-center rounded-full sm:size-12">
+        <Icon className="size-4 sm:size-[1.15rem]" strokeWidth={1.15} />
       </span>
       <span className="min-w-0 w-full">
-        <span className="block font-sans text-[0.8125rem] font-medium leading-snug tracking-normal text-foreground sm:text-sm">
+        <span className="block font-sans text-[0.8125rem] font-medium leading-snug tracking-normal text-white sm:text-sm">
           {label}
         </span>
         {description ? (
-          <span className="mt-0.5 block font-sans text-[0.625rem] leading-snug tracking-normal text-muted-foreground sm:text-[0.6875rem]">
+          <span className="mt-0.5 block font-sans text-[0.625rem] leading-snug tracking-normal text-white/55 sm:text-[0.6875rem]">
             {description}
           </span>
         ) : null}
@@ -172,50 +171,86 @@ function IconTile({
 
 export function LinksHub() {
   return (
-    <div className="flex flex-1 flex-col bg-white">
+    <div className="relative flex min-h-full flex-1 flex-col text-white">
+      <LinksSpaceBg />
+
       {/* PDF-style composition: links left, portrait right (stacked on small phones) */}
-      <section className="border-b border-black/10">
-        <div className="mx-auto grid max-w-[1200px] grid-cols-1 sm:grid-cols-[minmax(0,1.05fr)_minmax(200px,0.95fr)]">
+      <section className="relative z-10">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 sm:grid-cols-[minmax(0,1.05fr)_minmax(220px,0.95fr)]">
           {/* LEFT — all link panels stacked as in the PDF */}
-          <div className="flex min-w-0 flex-col border-black/10 px-4 py-8 sm:border-r sm:px-8 sm:py-12 lg:px-10 lg:py-14">
-            <Stagger delayMs={0}>
-              <div className="relative h-9 w-[6.75rem] sm:h-10 sm:w-[7.5rem]">
+          <div className="flex min-w-0 flex-col border-white/10 px-4 py-8 sm:border-r sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+            <div className="links-intro">
+              <div
+                className="links-classic-line relative h-20 w-[7.5rem] sm:h-28 sm:w-[10.5rem]"
+                style={{ animationDelay: "80ms" }}
+              >
                 <Image
                   src="/logo.png"
                   alt="VVR"
                   fill
-                  className="object-contain object-left"
+                  className="links-logo-light object-contain object-left"
                   priority
-                  sizes="120px"
+                  sizes="(max-width: 640px) 120px, 168px"
                 />
               </div>
-              <p className="type-rolex-overline mt-7 text-muted-foreground">
-                The Edge
+              <p
+                className="links-classic-overline type-rolex-overline mt-7 text-white/55"
+                style={{ animationDelay: "280ms" }}
+              >
+                Precision for a connected world.
               </p>
-              <h1 className="mt-2 font-sans text-2xl font-medium tracking-tight text-foreground sm:text-4xl">
-                Links
+              <h1
+                className="links-classic-line mt-4 font-sans text-2xl font-medium tracking-tight text-white sm:text-4xl"
+                style={{ animationDelay: "520ms" }}
+              >
+                The Man Behind VVR!
               </h1>
-              <p className="mt-3 max-w-md font-sans text-xs leading-relaxed tracking-normal text-muted-foreground sm:text-sm">
-                Marketplace, support, careers, solutions, and social — in one
-                place.
+              <p
+                className="links-classic-line mt-5 font-sans text-sm tracking-normal text-white/60 sm:text-base"
+                style={{ animationDelay: "760ms" }}
+              >
+                Meet,
               </p>
-            </Stagger>
+              <p
+                className="links-classic-line mt-1 font-sans text-xl font-medium tracking-tight text-white sm:text-2xl"
+                style={{ animationDelay: "980ms" }}
+              >
+                K K Ravi Vara
+              </p>
+              <p
+                className="links-classic-line mt-4 font-sans text-[0.625rem] font-normal uppercase tracking-[0.28em] text-white/55"
+                style={{ animationDelay: "1100ms" }}
+              >
+                Marketing Director
+              </p>
+              <p
+                className="links-classic-line mt-2 font-sans text-[0.625rem] font-normal uppercase tracking-[0.28em] text-white/55"
+                style={{ animationDelay: "1220ms" }}
+              >
+                V V R I Limited.
+              </p>
+              <span
+                className="links-classic-rule mt-6 text-white/70"
+                style={{ animationDelay: "1360ms" }}
+                aria-hidden
+              />
+            </div>
 
             {/* Portrait on mobile — sits under intro, not squeezing the buttons */}
-            <Stagger delayMs={80} className="mt-8 sm:hidden">
-              <div className="relative mx-auto h-[280px] w-full max-w-[200px]">
+            <Stagger delayMs={1300} className="mt-8 sm:hidden">
+              <div className="links-animate-portrait relative mx-auto h-[280px] w-full max-w-[200px]">
                 <Image
                   src="/ravi_image.png"
                   alt="The Edge — VVR Industries"
                   fill
-                  className="object-contain object-bottom"
+                  className="object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.55)]"
                   priority
                   sizes="200px"
                 />
               </div>
             </Stagger>
 
-            <Stagger delayMs={120} className="mt-8 sm:mt-10">
+            <Stagger delayMs={1400} className="mt-8 sm:mt-10">
               <SectionHeading>Buyer &amp; Seller</SectionHeading>
               <div className="mt-4 grid grid-cols-2 gap-2 sm:gap-3">
                 {marketplace.map((item) => (
@@ -224,7 +259,7 @@ export function LinksHub() {
               </div>
             </Stagger>
 
-            <Stagger delayMs={220} className="mt-8 sm:mt-10">
+            <Stagger delayMs={1550} className="mt-8 sm:mt-10">
               <SectionHeading>24/7 Support Team</SectionHeading>
               <div className="mt-4">
                 <IconTile
@@ -237,7 +272,7 @@ export function LinksHub() {
               </div>
             </Stagger>
 
-            <Stagger delayMs={320} className="mt-8 sm:mt-10">
+            <Stagger delayMs={1700} className="mt-8 sm:mt-10">
               <SectionHeading>Careers</SectionHeading>
               <div className="mt-4 grid grid-cols-1 gap-2 min-[400px]:grid-cols-3 sm:gap-3">
                 {careers.map((item) => (
@@ -246,19 +281,19 @@ export function LinksHub() {
               </div>
             </Stagger>
 
-            <Stagger delayMs={420} className="mt-8 sm:mt-10">
+            <Stagger delayMs={1850} className="mt-8 sm:mt-10">
               <SectionHeading>Edge Solutions</SectionHeading>
               <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                 {edgeSolutions.map((item) => (
                   <li key={item.href} className="min-w-0">
                     <Link
                       href={item.href}
-                      className="links-tile group flex min-w-0 items-center justify-between gap-3 border border-black/10 px-3 py-2.5 font-sans text-xs leading-snug tracking-normal text-foreground hover:border-foreground hover:bg-muted/30 sm:px-3.5 sm:py-3 sm:text-sm"
+                      className="links-tile group flex min-w-0 items-center justify-between gap-3 border px-3 py-2.5 font-sans text-xs leading-snug tracking-normal text-white sm:px-3.5 sm:py-3 sm:text-sm"
                     >
                       <span className="min-w-0 flex-1 break-words">{item.label}</span>
                       <span
                         aria-hidden
-                        className="shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5"
+                        className="shrink-0 text-white/45 transition-transform duration-300 group-hover:translate-x-0.5"
                       >
                         →
                       </span>
@@ -268,7 +303,7 @@ export function LinksHub() {
               </ul>
             </Stagger>
 
-            <Stagger delayMs={520} className="mt-8 sm:mt-10">
+            <Stagger delayMs={2000} className="mt-8 sm:mt-10">
               <SectionHeading>Watch Us On</SectionHeading>
               <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-2.5">
                 {socialLinks.map((item) => (
@@ -278,12 +313,12 @@ export function LinksHub() {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.label}
-                      className="links-tile group flex min-w-0 flex-col items-center gap-2 border border-black/10 px-2 py-3.5 hover:border-foreground hover:bg-muted/30 sm:py-4"
+                      className="links-tile group flex min-w-0 flex-col items-center gap-2 border px-2 py-3.5 sm:py-4"
                     >
-                      <span className="shrink-0 text-foreground transition-transform duration-300 group-hover:scale-110">
+                      <span className="links-icon-badge flex size-10 shrink-0 items-center justify-center rounded-full sm:size-11">
                         {item.icon}
                       </span>
-                      <span className="w-full truncate text-center font-sans text-[0.625rem] font-medium uppercase tracking-[0.08em] text-foreground sm:tracking-[0.12em]">
+                      <span className="w-full truncate text-center font-sans text-[0.625rem] font-medium uppercase tracking-[0.08em] text-white sm:tracking-[0.12em]">
                         {item.label}
                       </span>
                     </Link>
@@ -293,40 +328,22 @@ export function LinksHub() {
             </Stagger>
           </div>
 
-          {/* RIGHT — portrait column from sm up */}
-          <aside className="relative hidden self-stretch bg-white sm:block">
-            <div className="sticky top-14 flex h-[calc(100vh-3.5rem)] items-center justify-center px-2 sm:top-16 sm:h-[calc(100vh-4rem)] sm:px-4">
-              <div className="links-animate-portrait relative h-[min(80vh,680px)] w-full max-w-[440px]">
-                <div className="links-portrait-float relative h-full w-full">
-                  <Image
-                    src="/ravi_image.png"
-                    alt="The Edge — VVR Industries"
-                    fill
-                    className="object-contain object-center"
-                    priority
-                    sizes="(max-width: 640px) 42vw, 420px"
-                  />
-                </div>
+          {/* RIGHT — portrait stays vertically centered + sticky while links scroll */}
+          <aside className="relative hidden self-stretch sm:block">
+            <div className="sticky top-0 z-20 flex h-dvh w-full items-center justify-center self-start px-3 lg:px-6">
+              <div className="links-animate-portrait relative h-[min(78dvh,640px)] w-full max-w-[420px] will-change-auto">
+                <Image
+                  src="/ravi_image.png"
+                  alt="The Edge — VVR Industries"
+                  fill
+                  className="object-contain object-center drop-shadow-[0_30px_80px_rgba(0,0,0,0.65)]"
+                  priority
+                  sizes="(max-width: 1024px) 40vw, 420px"
+                />
               </div>
             </div>
           </aside>
         </div>
-      </section>
-
-      {/* Agents Located At — full width under the two-column hub */}
-      <section className="flex flex-1 flex-col">
-        <div className="border-b border-black/10 px-6 py-10 sm:px-10 sm:py-12">
-          <div
-            className="links-animate-in mx-auto max-w-4xl"
-            style={{ animationDelay: "600ms" }}
-          >
-            <SectionHeading>Agents Located At</SectionHeading>
-            <p className="mt-3 max-w-lg font-sans text-sm text-muted-foreground">
-              Delhi and Ravulapalem — select a location to explore on the map.
-            </p>
-          </div>
-        </div>
-        <LocationsMapSection className="min-h-[min(70vh,560px)]" />
       </section>
     </div>
   )
