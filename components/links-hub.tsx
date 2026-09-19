@@ -148,20 +148,20 @@ function IconTile({
       href={href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={cn(
-        "links-tile group flex flex-col items-center gap-2.5 border border-black/10 bg-white px-3 py-5 text-center",
+        "links-tile group flex min-w-0 flex-col items-center gap-2 border border-black/10 bg-white px-2 py-4 text-center sm:gap-2.5 sm:px-3 sm:py-5",
         "hover:border-foreground hover:bg-muted/30",
         className
       )}
     >
-      <span className="flex size-11 items-center justify-center border border-black/15 transition-transform duration-300 group-hover:scale-110 group-hover:border-foreground">
-        <Icon className="size-5 text-foreground" strokeWidth={1.25} />
+      <span className="flex size-9 shrink-0 items-center justify-center border border-black/15 transition-transform duration-300 group-hover:scale-110 group-hover:border-foreground sm:size-11">
+        <Icon className="size-4 text-foreground sm:size-5" strokeWidth={1.25} />
       </span>
-      <span>
-        <span className="block font-sans text-sm font-medium text-foreground">
+      <span className="min-w-0 w-full">
+        <span className="block font-sans text-[0.8125rem] font-medium leading-snug tracking-normal text-foreground sm:text-sm">
           {label}
         </span>
         {description ? (
-          <span className="mt-0.5 block font-sans text-[0.6875rem] text-muted-foreground">
+          <span className="mt-0.5 block font-sans text-[0.625rem] leading-snug tracking-normal text-muted-foreground sm:text-[0.6875rem]">
             {description}
           </span>
         ) : null}
@@ -173,11 +173,11 @@ function IconTile({
 export function LinksHub() {
   return (
     <div className="flex flex-1 flex-col bg-white">
-      {/* PDF-style composition: links left, portrait right */}
+      {/* PDF-style composition: links left, portrait right (stacked on small phones) */}
       <section className="border-b border-black/10">
-        <div className="mx-auto grid max-w-[1200px] grid-cols-[minmax(0,1.1fr)_minmax(140px,0.9fr)] sm:grid-cols-[minmax(0,1.05fr)_minmax(220px,0.95fr)]">
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 sm:grid-cols-[minmax(0,1.05fr)_minmax(200px,0.95fr)]">
           {/* LEFT — all link panels stacked as in the PDF */}
-          <div className="flex flex-col border-r border-black/10 px-4 py-8 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+          <div className="flex min-w-0 flex-col border-black/10 px-4 py-8 sm:border-r sm:px-8 sm:py-12 lg:px-10 lg:py-14">
             <Stagger delayMs={0}>
               <div className="relative h-9 w-[6.75rem] sm:h-10 sm:w-[7.5rem]">
                 <Image
@@ -195,10 +195,24 @@ export function LinksHub() {
               <h1 className="mt-2 font-sans text-2xl font-medium tracking-tight text-foreground sm:text-4xl">
                 Links
               </h1>
-              <p className="mt-3 max-w-md font-sans text-xs leading-relaxed text-muted-foreground sm:text-sm">
+              <p className="mt-3 max-w-md font-sans text-xs leading-relaxed tracking-normal text-muted-foreground sm:text-sm">
                 Marketplace, support, careers, solutions, and social — in one
                 place.
               </p>
+            </Stagger>
+
+            {/* Portrait on mobile — sits under intro, not squeezing the buttons */}
+            <Stagger delayMs={80} className="mt-8 sm:hidden">
+              <div className="relative mx-auto h-[280px] w-full max-w-[200px]">
+                <Image
+                  src="/ravi_image.png"
+                  alt="The Edge — VVR Industries"
+                  fill
+                  className="object-contain object-bottom"
+                  priority
+                  sizes="200px"
+                />
+              </div>
             </Stagger>
 
             <Stagger delayMs={120} className="mt-8 sm:mt-10">
@@ -225,7 +239,7 @@ export function LinksHub() {
 
             <Stagger delayMs={320} className="mt-8 sm:mt-10">
               <SectionHeading>Careers</SectionHeading>
-              <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
+              <div className="mt-4 grid grid-cols-1 gap-2 min-[400px]:grid-cols-3 sm:gap-3">
                 {careers.map((item) => (
                   <IconTile key={item.href} {...item} />
                 ))}
@@ -236,15 +250,15 @@ export function LinksHub() {
               <SectionHeading>Edge Solutions</SectionHeading>
               <ul className="mt-4 grid gap-2 sm:grid-cols-2">
                 {edgeSolutions.map((item) => (
-                  <li key={item.href}>
+                  <li key={item.href} className="min-w-0">
                     <Link
                       href={item.href}
-                      className="links-tile group flex items-center justify-between border border-black/10 px-3 py-2.5 font-sans text-xs text-foreground hover:border-foreground hover:bg-muted/30 sm:px-3.5 sm:py-3 sm:text-sm"
+                      className="links-tile group flex min-w-0 items-center justify-between gap-3 border border-black/10 px-3 py-2.5 font-sans text-xs leading-snug tracking-normal text-foreground hover:border-foreground hover:bg-muted/30 sm:px-3.5 sm:py-3 sm:text-sm"
                     >
-                      {item.label}
+                      <span className="min-w-0 flex-1 break-words">{item.label}</span>
                       <span
                         aria-hidden
-                        className="text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5"
+                        className="shrink-0 text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5"
                       >
                         →
                       </span>
@@ -258,18 +272,18 @@ export function LinksHub() {
               <SectionHeading>Watch Us On</SectionHeading>
               <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-2.5">
                 {socialLinks.map((item) => (
-                  <li key={item.label}>
+                  <li key={item.label} className="min-w-0">
                     <Link
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.label}
-                      className="links-tile group flex flex-col items-center gap-2 border border-black/10 px-2 py-3.5 hover:border-foreground hover:bg-muted/30 sm:py-4"
+                      className="links-tile group flex min-w-0 flex-col items-center gap-2 border border-black/10 px-2 py-3.5 hover:border-foreground hover:bg-muted/30 sm:py-4"
                     >
-                      <span className="text-foreground transition-transform duration-300 group-hover:scale-110">
+                      <span className="shrink-0 text-foreground transition-transform duration-300 group-hover:scale-110">
                         {item.icon}
                       </span>
-                      <span className="font-sans text-[0.625rem] font-medium uppercase tracking-[0.12em] text-foreground">
+                      <span className="w-full truncate text-center font-sans text-[0.625rem] font-medium uppercase tracking-[0.08em] text-foreground sm:tracking-[0.12em]">
                         {item.label}
                       </span>
                     </Link>
@@ -279,8 +293,8 @@ export function LinksHub() {
             </Stagger>
           </div>
 
-          {/* RIGHT — portrait column, sticky while scrolling links */}
-          <aside className="relative self-stretch bg-white">
+          {/* RIGHT — portrait column from sm up */}
+          <aside className="relative hidden self-stretch bg-white sm:block">
             <div className="sticky top-14 flex h-[calc(100vh-3.5rem)] items-center justify-center px-2 sm:top-16 sm:h-[calc(100vh-4rem)] sm:px-4">
               <div className="links-animate-portrait relative h-[min(80vh,680px)] w-full max-w-[440px]">
                 <div className="links-portrait-float relative h-full w-full">
